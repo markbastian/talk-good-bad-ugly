@@ -1,0 +1,8 @@
+(get [1 2 3 4] 5)
+=> nil
+
+(get #{1 2 3 4} 5)
+=> nil
+
+(get {"ONE" 1 "TWO" 2 "THREE" 3 "FOUR" 4} "FIVE")
+=> nil

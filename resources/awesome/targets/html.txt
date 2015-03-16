@@ -1,0 +1,24 @@
+(require 'hiccup.core)
+=> nil
+(def slide
+  [:section
+     [:h2 "Wouldn't it be cool if..."]
+     [:ul
+      [:li "You could write code that runs on the JVM?"]
+      [:li "And run as JavaScript in the browser?"]
+      [:li "And transform itself to and from HTML?"]
+      [:li "And transform itself to and from JSON?"]
+      [:li "That would be awesome!"]]])
+=> #'user/slide
+(def html-text (hiccup.core/html slide))
+=> #'user/html-text
+html-text
+=> "<section><h2>Wouldn't it be cool if...<ul><li>You could write code that runs on the JVM?</li><li>And run as JavaScript in the browser?</li><li>And transform itself to and from HTML?</li><li>And transform itself to and from JSON?</li><li>That would be awesome!</li></ul></h2></section>"
+(require '[hiccup-bridge.core :as hicv])
+=> nil
+(def recovered (hicv/html->hiccup html-text))
+=> #'user/recovered
+recovered
+=> ([:section [:h2 "Wouldn't it be cool if..."] [:ul [:li "You could write code that runs on the JVM?"] [:li "And run as JavaScript in the browser?"] [:li "And transform itself to and from HTML?"] [:li "And transform itself to and from JSON?"] [:li "That would be awesome!"]]])
+(= slide (first recovered))
+=> true

@@ -1,0 +1,11 @@
+(conj [1 2 3] 4) ;Vector insertion
+=> [1 2 3 4] ;Faster to add at the end
+
+(conj #{1 2 3} 4) ;Set insertion
+=> #{1 4 3 2}
+
+(conj {"ONE" 1 "TWO" 2 "THREE" 3} ["FOUR" 4]) ;Map insertion
+=> {"FOUR" 4, "THREE" 3, "TWO" 2, "ONE" 1}
+
+(conj '(1 2 3) 4) ;List insertion
+=> (4 1 2 3) ;Faster to add at the front

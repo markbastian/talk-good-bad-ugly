@@ -1,0 +1,3 @@
+final Set<String> names = new HashSet<String>();
+final List<Integer> ages = new LinkedList<Integer>();
+final Map<String, Integer> names2ages = new HashMap<String, Integer>();

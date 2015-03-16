@@ -1,0 +1,7 @@
+.idea
+.lein-failures
+.lein-history
+doc
+target
+presentation
+*.iml

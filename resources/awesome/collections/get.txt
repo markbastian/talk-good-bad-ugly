@@ -1,0 +1,11 @@
+(get [1 2 3 4] 2) ;Get the item at index 2
+=> 3
+
+(get #{1 2 3 4} 2) ;Get 2 from the set
+=> 2
+
+(get {"ONE" 1 "TWO" 2 "THREE" 3 "FOUR" 4} "TWO") ;Get "TWO" from the map
+=> 2
+
+(associative? '(1 2 3 4)) ;Lists aren't associative so we can't get
+=> false

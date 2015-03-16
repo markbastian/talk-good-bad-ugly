@@ -1,0 +1,20 @@
+package interop;
+
+import clojure.lang.RT;
+
+import java.util.List;
+import java.util.Map;
+import java.util.RandomAccess;
+import java.util.Set;
+
+public class Interop {
+    public static void main(String[] args){
+        Map<String, Integer> m = (Map<String, Integer>)RT.readString("{ \"abc\" 123 }");
+        System.out.println(m.get("abc"));
+        Set<String> s = (Set<String>)RT.readString("#{ \"abc\" \"123\" }");
+        System.out.println(s.contains("abc"));
+        List<String> v = (List<String>)RT.readString("[ \"abc\" ]");
+        System.out.println(v.get(0));
+        System.out.println(v instanceof RandomAccess);
+    }
+}

@@ -1,0 +1,18 @@
+(defmacro ? "Print a form and its value"
+  [& rest]
+  `(doto ~rest (->> (str '~rest " -> ") prn)))
+=> #'user/?
+
+;This form is pretty simple, but what if you wanted to know what it did?
+(+ 1 2 3 4 5 6 7)
+=> 28
+
+;You could do this, but it is ugly and you have to pull out the form later.
+(prn (+ 1 2 3 4 5 6 7))
+28
+=> nil
+
+;Just stick the macro in there and see...
+(? + 1 2 3 4 5 6 7)
+"(+ 1 2 3 4 5 6 7) -> 28"
+=> 28

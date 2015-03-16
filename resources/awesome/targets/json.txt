@@ -1,0 +1,6 @@
+(require '(clojure.data [json :as json]))
+=> nil
+(json/write-str {:a 1 :b [1 2 3 4 5]})
+=> "{\"b\":[1,2,3,4,5],\"a\":1}"
+(json/read-str "{\"a\":1,\"b\":[1,2,3,4]}" :key-fn keyword)
+=> {:a 1, :b [1 2 3 4]}

@@ -1,0 +1,14 @@
+(require 'clojure.edn)
+=> nil
+
+(def data { :a 1 :b [1 2 3 4 5] :c { :name "Bob" :age 19 }})
+=> #'user/data
+
+(spit "my.edn" data)
+=> nil
+
+(def reconstituted (clojure.edn/read-string (slurp "my.edn")))
+=> #'user/reconstituted
+
+reconstituted
+=> {:c {:age 19, :name "Bob"}, :b [1 2 3 4 5], :a 1}
