@@ -35,7 +35,7 @@
       [:li "agents: Asynchronous & Uncoordinated"]
       [:li "atoms: Synchronous & Uncoordinated"]
       [:li "ref: Synchronous & Coordinated"]]]
-    [:li "This is awesome1"]]])
+    [:li "This is awesome!"]]])
 
 (def conclusion
   [:section
