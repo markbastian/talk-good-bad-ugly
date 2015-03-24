@@ -54,7 +54,7 @@
     [:li "Common Clojure data structures are:"
      [:ul
       [:li "Nested: It is common for collections to be collections of collections"]
-      [:li "Functions: vectors, sets, and vectors are functions"]
+      [:li "Functions: maps, sets, and vectors are functions"]
       [:li "Heterogeneous: Collection elements can be of any type"]]]
     [:li "Note: Lists are different"]
     [:ul

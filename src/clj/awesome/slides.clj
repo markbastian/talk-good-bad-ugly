@@ -16,7 +16,7 @@
      {:href "mailto:markbastian@gmail.com?Subject=Syntax"}
      "markbastian@gmail.com"]]
    [:p]
-   [:p "1/16/2015"]])
+   [:p "3/24/2015"]])
 
 (def what-is-clojure?
   [:section
