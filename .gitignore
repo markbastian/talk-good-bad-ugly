@@ -6,3 +6,6 @@ doc
 target
 presentation
 *.iml
+.DS_Store
+bower_components
+pom.xml

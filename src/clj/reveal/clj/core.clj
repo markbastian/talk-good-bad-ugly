@@ -4,4 +4,6 @@
 
 (defn create-presentation [m] (html (template/basic m)))
 
-(defn write-presentation [m] (spit (str "presentation/" (:out m "index.html")) (html (template/basic m))))
+(defn write-presentation [m]
+  (spit (str "presentation/" (:out m "index.html"))
+        (html (template/basic m))))
