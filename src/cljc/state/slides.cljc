@@ -1,10 +1,11 @@
 (ns state.slides
- (:require [reveal.clj.core :as reveal]))
+ (:require [reveal.clj.core :as reveal]
+           [state.state :as st]
+           [state.concurrency :as sc]))
 
 (def intro
  [:section
-  [:h2 "Managing State in a Stateless World"]
-  [:h3 "Tips and Patterns for Managing State in Clojure"]
+  [:h3 "Functional Programming: Writing Stateless Code in a Stateful World with Clojure"]
   [:p "Mark Bastian"]
   [:p
    [:a
@@ -12,6 +13,51 @@
     "markbastian@gmail.com"]]
   [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]
   [:p "3/24/2015"]])
+
+(def overview
+ [:section
+  [:h2 "Overview"]
+  [:ul
+   [:li "What is state?"]
+   [:li "What is statelessness?"]
+   [:li "What is statelessness?"]
+   [:li "What is statelessness?"]]])
+
+;;FP in the small is easy
+;; - persistent collections
+;;   - Native in Scala, Clojure
+;; - small, immutable classes
+;;   - Native support in Scala () and Clojure
+
+;;Evolution
+;; - Persistent collections with functional interfaces
+;; - Immutable classes - Have to give up beans
+;; - Immutable state with native concurrency - Need native concurrency support
+
+(def the-goal
+ [:section
+  [:h2 "Goals of this Presentation"]
+  [:ul
+   [:li "Explain why programming statelessly is a very good thing"]
+   [:li "Overcome the conceptual hurdles"]
+   [:li "Demonstrate FP in practice"]]])
+
+(def fp-in-the-small
+ [:section
+  [:h2 "Overview"]
+  [:ul
+   [:li "What is state?"]
+   [:li "What is statelessness?"]
+   [:li "What is statelessness?"]
+   [:li "What is statelessness?"]]])
+
+(def background
+ [:section
+  [:h2 "Background"]
+  [:ul
+   [:li "Late 90's: Started programming - OOP is all the rage"]
+   [:li "Late 00's: Started Scala"]
+   [:li "2013/2014: Clojure"]]])
 
 (def the-challenge
  [:section
@@ -28,21 +74,15 @@
      [:li "Mapping X -> X or nil"]
      [:li "Threading"]]]]])
 
-(def overview
- [:section
-  [:h2 "Overview"]
-  [:ul
-   [:li "Concurrency Primtives"
-    [:ul
-     [:li "Atoms"]
-     [:li "Atomic retries"]
-     [:li "Refs"]
-     [:li "Agents"]]]
-   [:li "Patterns"
-    [:ul
-     [:li "Mapping X -> X"]
-     [:li "Mapping X -> X or nil"]
-     [:li "Threading"]]]]])
+;;best practices
+;;Decouple state management from value calculations
+
+;;look for patterns in data (code) <- we are homoiconic, remember
+
+;;Function families
+;; X -> X
+;; X -> binary
+;; X -> or X nil (queries)
 
 (def clojure-vs
  [:section
@@ -69,15 +109,17 @@
 
 (def slides
  [intro
+  (into [:section] st/slides)
+  (into [:section] sc/slides)
+  intro
   the-challenge
   clojure-vs
-  overview
   conclusion])
 
 (reveal/write-presentation
  {:out "state.html"
   :slides slides
   :author "Mark Bastian"
-  :description "Managing state in a stateless world"
+  :description "Functional Programming: Writing Stateless Code in a Stateful World with Clojure"
   :title "Clojure: State"})
 
