@@ -108,9 +108,22 @@
   [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]
   [:p "3/24/2015"]])
 
+;Overview -
+;The Problem - The transition to FP is very difficult in part due to understanding programming with no state.
+;FP is good, though, becase.... (why)
+;What does it actually mean to be stateless (what)
+;It can be done, though (how)
+;Do I focus on Clojure or do I transition from Java -> Scala -> Clojure?
+;At some point (maybe in why), discuss all of the best practice talks about immutability. Note that this flies in the face of beans+listeners, etc.
+; Stage 1 - Lambdas/Closures (all with J8+)
+; Stage 2 - Persistent Collections (Scala, Clojure)
+; Stage 3 - Immutable classes (Scala, Clojure, Java with pain)
+; Stage 4 - Concurrency primitives (Clojure only by default)
+
 (def slides
  [intro
   overview
+  ;(into [:section foo])                                    ;why? - Why FP? Maybe grab some from the FP talk.
   (into [:section] st/slides)                               ;what
   (into [:section] sp/slides)                               ;how
   (into [:section] sc/slides)                               ;examples?
