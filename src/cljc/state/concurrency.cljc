@@ -1,6 +1,7 @@
 (ns state.concurrency
   (:require [reveal.clj.core :as reveal]))
 
+;;This needs a better bridge on the how section
 (def overview
   [:section
    [:h2 "Overview"]

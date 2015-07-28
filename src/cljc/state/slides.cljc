@@ -1,27 +1,18 @@
 (ns state.slides
  (:require [reveal.clj.core :as reveal]
            [state.state :as st]
-           [state.concurrency :as sc]))
+           [state.concurrency :as sc]
+           [state.practice :as sp]))
 
-(def intro
- [:section
-  [:h3 "Functional Programming: Writing Stateless Code in a Stateful World with Clojure"]
-  [:p "Mark Bastian"]
-  [:p
-   [:a
-    {:href "mailto:markbastian@gmail.com?Subject=Syntax"}
-    "markbastian@gmail.com"]]
-  [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]
-  [:p "3/24/2015"]])
+
 
 (def overview
  [:section
   [:h2 "Overview"]
   [:ul
-   [:li "What is state?"]
-   [:li "What is statelessness?"]
-   [:li "What is statelessness?"]
-   [:li "What is statelessness?"]]])
+   [:li "What is stateless code?"]
+   [:li "How do I get there?"]
+   [:li "Considerations"]]])
 
 ;;FP in the small is easy
 ;; - persistent collections
@@ -46,10 +37,9 @@
  [:section
   [:h2 "Overview"]
   [:ul
-   [:li "What is state?"]
-   [:li "What is statelessness?"]
-   [:li "What is statelessness?"]
-   [:li "What is statelessness?"]]])
+   [:li "What is state and how do I think about it?"]
+   [:li "Stateless programming in practice"]
+   [:li "????"]]])
 
 (def background
  [:section
@@ -107,13 +97,25 @@
    [:li "Threading and api design"]
    [:li "Come see my other talk"]]])
 
+(def intro
+ [:section
+  [:h3 "Functional Programming: Writing Stateless Code in a Stateful World with Clojure"]
+  [:p "Mark Bastian"]
+  [:p
+   [:a
+    {:href "mailto:markbastian@gmail.com?Subject=Syntax"}
+    "markbastian@gmail.com"]]
+  [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]
+  [:p "3/24/2015"]])
+
 (def slides
  [intro
-  (into [:section] st/slides)
-  (into [:section] sc/slides)
-  intro
-  the-challenge
-  clojure-vs
+  overview
+  (into [:section] st/slides)                               ;what
+  (into [:section] sp/slides)                               ;how
+  (into [:section] sc/slides)                               ;examples?
+  the-challenge                                             ;move
+  clojure-vs                                                ;move
   conclusion])
 
 (reveal/write-presentation

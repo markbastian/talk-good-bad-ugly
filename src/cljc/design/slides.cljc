@@ -1,4 +1,4 @@
-(ns design.sides
+(ns design.slides
   (:require [reveal.clj.core :as reveal]))
 
 (def intro

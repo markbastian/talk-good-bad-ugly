@@ -1,11 +1,14 @@
 (ns state.practice
   (:require [reveal.clj.core :as reveal]))
 
+;;Representation
+;;Management
+;;Transition
+
 (def fp-in-practice
   [:section
    [:h2 "FP in Practice"]
    [:ul
-    [:li "Note: I will often interchange FP and statelessness"]
     [:li "A practical roadmap of how to get there"]
     [:li "What languages support each stage"]]])
 
@@ -24,17 +27,15 @@
   [:section
    [:h2 "Lambdas/Closures"]
    [:ul
-    [:li "Closures are probably the first FP concept"]
-    [:li "Closures are probably the first FP concept"]]])
+    [:li "Closures allow single, stateless calculations"]]])
 
 (def persistent-collections
   [:section
-   [:h2 "Stages of FP"]
+   [:h2 "Persistent Collections"]
    [:ul
-    [:li "Lambdas"]
-    [:li "Persistent collections"]
-    [:li "Immutable classes"]
-    [:li "Concurrent state management"]]])
+    [:li "Immutable"]
+    [:li "Shared data for efficiency and speed"]
+    [:li "Functional operations"]]])
 
 (def immutable-classes
   [:section
@@ -55,7 +56,8 @@
     [:li "Concurrent state management"]]])
 
 (def slides
-  [fp-in-practice
+  [[:section [:h1 "How"]]
+    fp-in-practice
    stages
    lambdas
    persistent-collections

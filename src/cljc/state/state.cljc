@@ -4,32 +4,43 @@
 (def what-is-state
  [:section
   [:h2 "What is State?"]
-  [:quote "State, a complete description of a system in classical mechanics"]])
+  [:blockquote { :cite "https://en.wikipedia.org/wiki/State" }
+   "State, a complete description of a system in classical mechanics"]
+  [:blockquote { :cite "https://www.google.com/search?q=what+is+state&oq=what+is+state" }
+   "the particular condition that someone or something is in at a specific time."]])
 
 (def what-is-state-2
-  [:section
-   [:h2 "What is State?"]
-   [:ul
-    [:li "State: A representation of the current computational universe"]
-    [:li "Often confusing because of differing definitions across communities"]
-    [:li "There are two kinds of state:"
-     [:ul
-      [:li "Mutable: A changeable variable used to represent the &quot;current&quot; state of computation"]
-      [:li "Immutable: A single, non-changing, constant value"]]]
-    [:li "When FPers say &quot;stateless&quot; they mean &quot;immutable&quot;"]]])
+ [:section
+  [:h2 "What is State?"]
+  [:ul
+   [:li "State: A representation of the current computational universe"]
+   [:li "Often confusing because of differing definitions across communities"]
+   [:li "There are two kinds of state:"
+    [:ul
+     [:li "Mutable: A changeable variable used to represent the &quot;current&quot; state of computation"
+      [:ul [:li "This is OOP state"]]]
+     [:li "Immutable: A single, non-changing, constant value"
+      [:ul [:li "This is FP state"]]]]]]])
+
+(def what-is-fp
+ [:section
+  [:h2 "Functional Programming"]
+  [:ul
+   [:li "Functional Programming models computation as the evaluation of mathematical functions"]
+   [:li "Mathematical functions have no side-effects"]
+   [:li "Inputs and outputs are values (i.e. no mutable state)"]]])
 
 (def the-problem-of-state
   [:section
-   [:h2 "If nothing changes, how does anything happen?"]
+   [:h2 "But..."]
    [:ul
+    [:li "If nothing changes, how does anything happen?"]
     [:li "This is the problem I will address"]
-    [:li "When FPers say &quot;stateless&quot; they mean &quot;immutable&quot;"]
-    [:li "To OOPers this is a bizarre concept"]
-    [:li "Heat death of the universe"]
     [:li "An analogy..."]]])
 
 (def the-universe
-  [:section
+  [:section { :data-background "images/CMB_Timeline300_no_WMAP.jpg"
+             :cite "http://map.gsfc.nasa.gov/media/060915/index.html" }
    [:h2 "The Traditional Universe"]
    [:ul
     [:li "Time flows forward like a river"]
@@ -38,7 +49,8 @@
     [:li "This is the object-oriented view of reality"]]])
 
 (def the-multiverse
-  [:section
+  [:section { :data-background "images/multiverse.jpg"
+             :cite "http://listverse.com/2012/09/23/10-immense-things-found-in-space/" }
    [:h2 "The Multiverse"]
    [:ul
     [:li "A universe is a single, discrete, immutable value"]
@@ -51,8 +63,8 @@
   [:section
    [:h2 "Concerns of State in Either Model"]
    [:ol
-    [:li "Representation: How do I represent a given value?"]
-    [:li "Management: How do I keep track of a value(s) of interest?"]
+    [:li "Representation: How do I represent a given item?"]
+    [:li "Management: How do I keep track of items(s) of interest?"]
     [:li "Transition: How do I get from one representation to another?"]]])
 
 (def universal-state-management
@@ -65,7 +77,7 @@
 
 (def multiversic-state-management
   [:section
-   [:h2 "Multiversic State Management"]
+   [:h2 "Multiversal State Management"]
    [:ol
     [:li "Representation: An immutable value representing the current state(s) of interest (data)"]
     [:li "Management: A concurrency primitive(s) holding a reference to the value(s) of interest"]
@@ -126,8 +138,10 @@
       [:li "That's what FP is all about"]]]]])
 
 (def slides
-  [what-is-state
+  [[:section [:h1 "What"]]
+   what-is-state
    what-is-state-2
+   what-is-fp
    the-problem-of-state
    the-universe
    the-multiverse
@@ -136,9 +150,10 @@
    multiversic-state-management
    pros-cons-mutability
    pros-cons-immutability
-   language-support-representation
-   language-support-management
-   language-support-transition])
+   ;language-support-representation
+   ;language-support-management
+   ;language-support-transition
+   ])
 
 (reveal/write-presentation
   {:out "state.html"
