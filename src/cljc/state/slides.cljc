@@ -15,44 +15,20 @@
 ;; - Immutable classes - Have to give up beans
 ;; - Immutable state with native concurrency - Need native concurrency support
 
-(def the-goal
- [:section
-  [:h2 "Goals of this Presentation"]
-  [:ul
-   [:li "Explain why programming statelessly is a very good thing"]
-   [:li "Overcome the conceptual hurdles"]
-   [:li "Demonstrate FP in practice"]]])
-
-(def fp-in-the-small
- [:section
-  [:h2 "Overview"]
-  [:ul
-   [:li "What is state and how do I think about it?"]
-   [:li "Stateless programming in practice"]
-   [:li "????"]]])
-
-(def background
- [:section
-  [:h2 "Background"]
-  [:ul
-   [:li "Late 90's: Started programming - OOP is all the rage"]
-   [:li "Late 00's: Started Scala"]
-   [:li "2013/2014: Clojure"]]])
-
-(def the-challenge
- [:section
-  [:h2 "The Big Challenge"]
-  [:ul
-   [:li "The most confusing thing about FP"
-    [:ul
-     [:li "The world has state...."]
-     [:li "FP has no state..."]
-     [:li "What gives?"]]]
-   [:li "Patterns"
-    [:ul
-     [:li "Mapping X -> X"]
-     [:li "Mapping X -> X or nil"]
-     [:li "Threading"]]]]])
+;(def the-challenge
+; [:section
+;  [:h2 "The Big Challenge"]
+;  [:ul
+;   [:li "The most confusing thing about FP"
+;    [:ul
+;     [:li "The world has state...."]
+;     [:li "FP has no state..."]
+;     [:li "What gives?"]]]
+;   [:li "Patterns"
+;    [:ul
+;     [:li "Mapping X -> X"]
+;     [:li "Mapping X -> X or nil"]
+;     [:li "Threading"]]]]])
 
 ;;best practices
 ;;Decouple state management from value calculations
@@ -90,13 +66,13 @@
 (def intro
  [:section
   [:h2 "Functional Programming"]
-  [:h3 "Writing Stateless Code in a Stateful World with Clojure"]
+  [:h4 "Writing Stateless Code in a Stateful World with Clojure"]
   [:p "Mark Bastian"]
-  [:p
+  [:small [:p
    [:a
     {:href "mailto:markbastian@gmail.com?Subject=Syntax"}
     "markbastian@gmail.com"]]
-  [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]
+  [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]]
   [:p "3/24/2015"]])
 
 (def overview

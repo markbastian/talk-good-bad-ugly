@@ -22,13 +22,6 @@
      [:li "Immutable: A single, non-changing, constant value"
       [:ul [:li "This is FP state"]]]]]]])
 
-(def what-is-fp
- [:section
-  [:h2 "Functional Programming"]
-  [:ul
-   [:li "Functional Programming models computation as the evaluation of mathematical functions"]
-   [:li "Mathematical functions have no side-effects"]
-   [:li "Inputs and outputs are values (i.e. no mutable state)"]]])
 
 (def the-problem-of-state
   [:section
@@ -138,10 +131,9 @@
       [:li "That's what FP is all about"]]]]])
 
 (def slides
-  [[:section [:h1 "What"]]
+  [[:section [:h1 "State"]]
    what-is-state
    what-is-state-2
-   what-is-fp
    the-problem-of-state
    the-universe
    the-multiverse
