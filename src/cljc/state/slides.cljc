@@ -1,18 +1,8 @@
 (ns state.slides
  (:require [reveal.clj.core :as reveal]
-           [state.state :as st]
-           [state.concurrency :as sc]
-           [state.practice :as sp]))
-
-
-
-(def overview
- [:section
-  [:h2 "Overview"]
-  [:ul
-   [:li "What is stateless code?"]
-   [:li "How do I get there?"]
-   [:li "Considerations"]]])
+           [state.state :as state]
+           [state.concurrency :as concurrency]
+           [state.practice :as practice]))
 
 ;;FP in the small is easy
 ;; - persistent collections
@@ -99,7 +89,8 @@
 
 (def intro
  [:section
-  [:h3 "Functional Programming: Writing Stateless Code in a Stateful World with Clojure"]
+  [:h2 "Functional Programming"]
+  [:h3 "Writing Stateless Code in a Stateful World with Clojure"]
   [:p "Mark Bastian"]
   [:p
    [:a
@@ -107,6 +98,15 @@
     "markbastian@gmail.com"]]
   [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]
   [:p "3/24/2015"]])
+
+(def overview
+ [:section
+  [:h2 "Overview"]
+  [:ul
+   [:li "Functional Programming"]
+   [:li "State and Statelessness"]
+   [:li "Getting There"]
+   [:li "Examples"]]])
 
 ;Overview -
 ;The Problem - The transition to FP is very difficult in part due to understanding programming with no state.
@@ -124,9 +124,9 @@
  [intro
   overview
   ;(into [:section foo])                                    ;why? - Why FP? Maybe grab some from the FP talk.
-  (into [:section] st/slides)                               ;what
-  (into [:section] sp/slides)                               ;how
-  (into [:section] sc/slides)                               ;examples?
+  (into [:section] state/slides)                               ;what
+  (into [:section] practice/slides)                               ;how
+  (into [:section] concurrency/slides)                               ;examples?
   the-challenge                                             ;move
   clojure-vs                                                ;move
   conclusion])
