@@ -5,4 +5,6 @@
 (defn create-template [s]
   (vec (hicv/html->hiccup (slurp s))))
 
-(pprint/pprint (create-template "resources/reduced.html"))
+pprint/pprint (create-template "resources/reduced.html"))
+
+;(pprint/pprint (create-template "http://markbastian.github.io/fp-firehose/fp-firehose.html#/2/2"))
