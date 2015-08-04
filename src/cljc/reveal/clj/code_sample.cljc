@@ -1,5 +1,7 @@
 (ns reveal.clj.code-sample
-  (:require [hiccup.util]))
+  (:require [hiccup.util]
+            [clojure.repl :as r]
+            [clojure.repl :as r]))
 
 (defn from-string [sample-str]
   (hiccup.util/escape-html

@@ -49,7 +49,7 @@
    [:ul
     [:li "A universe is a single, discrete, immutable value frozen in time"]
     [:li "There are infinitely many of these universes"]
-    [:li "Events are &ldqou;Quantum Leaps&rdquo; into a different universe"]
+    [:li "Events are &ldquo;Quantum Leaps&rdquo; into a different universe"]
     [:li "State is simply a reference to one or more universes of interest"]
     [:li "This is the functional view of reality"]]])
 
@@ -106,17 +106,24 @@
       [:li "Representation, management, and transition are tied together"]]]]])
 
 (def pros-cons-immutability
-  [:section
-   [:h2 "Pros/Cons of Immutable State"]
-   [:ul
-    [:li "Pros"
-     [:ul
-      [:li "Concurrency is implicit"]
-      [:li "Concerns are completely separated"]]]
-    [:li "Cons"
-     [:ul
-      [:li "Often a difficult idea to get your head wrapped around"]
-      [:li "Not all languages support this model"]]]]])
+ [:section
+  [:h2 "Pros/Cons of Immutable State"]
+  [:ul
+   [:li "Pros"
+    [:ul
+     [:li "Concurrency is implicit"]
+     [:li "Concerns are completely separated"]]]
+   [:li "Cons"
+    [:ul
+     [:li "Often a difficult idea to get your head wrapped around"]
+     [:li "Not all languages support this model"]]]]])
+
+(def immutability-wins
+ [:section
+  [:h2 "Since this talks is on FP..."]
+  [:ul
+   [:li "Immutability is obviously better"]
+   [:li "We'll now talk about how to do it"]]])
 
 (def slides
   [[:section [:h1 "State"]]
@@ -130,7 +137,8 @@
    universal-state-management
    multiversic-state-management
    pros-cons-mutability
-   pros-cons-immutability])
+   pros-cons-immutability
+   immutability-wins])
 
 (reveal/write-presentation
   {:out "state.html"

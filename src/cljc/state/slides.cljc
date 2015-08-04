@@ -100,12 +100,12 @@
 (def slides
  [intro
   overview
-  (into [:section fp/slides])                                    ;why? - Why FP? Maybe grab some from the FP talk.
+  (into [:section] fp/slides)                                  ;why? - Why FP? Maybe grab some from the FP talk.
   (into [:section] state/slides)                               ;what
   ;;Are these next two right?
   (into [:section] practice/slides)                               ;how
   (into [:section] concurrency/slides)                               ;examples?
-  the-challenge                                             ;move
+  ;the-challenge                                             ;move
   clojure-vs                                                ;move
   conclusion])
 
