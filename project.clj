@@ -1,6 +1,6 @@
 (defproject
   talk-stateless-code "0.1.0-SNAPSHOT"
-  :description "A set of slides about Clojure awesomeness"
+  :description "Functional Programming: Writing Stateless Code in a Stateful World with Clojure"
   :url "https://github.com/markbastian/awesome-clojure"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}

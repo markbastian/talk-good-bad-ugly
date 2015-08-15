@@ -1,24 +1,17 @@
-# clj-pres
+# Functional Programming: Writing Stateless Code in a Stateful World with Clojure
 
-A Clojure library designed to ... well, that part is up to you.
+Slide content to be presented at JavaOne 2015.
 
 ## Usage
+Execute the following commands in a shell:
 
-To make an awesome presentation using only Clojure, do the following:
+git clone git@github.com:markbastian/talk-stateless-code.git
 
-1. In the presentations directory, add whatever bower dependencies you require for your presentation to bower.json.
-2. Run bower install to update your libraries.
-3. Run lein cleantest to build the reveal-cl.js file needed for the presentation.
+cd presentation
 
-Note: You only need to do the above when you change your library dependencies.
+bower install
 
-3. Create a package for your presentation in src/clj for your presentation and start editing.
-4. Call reveal/write-presentation when you are all done.
-
-Take a look at one of the existing presentations (e.g. fp) for an example.
-
-Hint: If you work in LightTable, open your presentation file in an instarepl and your output file in a web browser.
-Now, whenever you save your presentation you can just refresh your browser and bam! new presentation.
+Now, open a REPL and execute the state.state ns. Your presentation will now be in your presentation folder.
 
 ## License
 
