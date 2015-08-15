@@ -170,6 +170,18 @@
    [:script { :type "text/javascript" :src "js/rk.js"}]
    [:script { :type "text/javascript" } "numerics.canvasui.init(document.getElementById(\"rk-canvas\"));"]])
 
+
+(def overview
+ [:section
+  [:h2 "Overview"]
+  [:ul
+   [:li "A brief review of OOP"]
+   [:li "Functional Programming"]
+   [:li "State"]
+   [:li "Evolution"]
+   [:li "Examples"]
+   [:li "Conclusion"]]])
+
 ;Overview -
 ;The Problem - The transition to FP is very difficult in part due to understanding programming with no state.
 ;FP is good, though, becase.... (why)
@@ -181,13 +193,33 @@
 ; Stage 2 - Persistent Collections (Scala, Clojure)
 ; Stage 3 - Immutable classes (Scala, Clojure, Java with pain)
 ; Stage 4 - Concurrency primitives (Clojure only by default)
+(def whats-it-about-oop
+ [:section
+  [:h2 "Object Oriented Programming"]
+  [:h3 "A Familiar Paradigm"]
+  [:ul
+   [:li "Objects contain state in the form of fields"]
+   [:li "Fields are generally mutable (setters)"]
+   [:li "They are often observable or observed (e.g. Beans, PCLs, etc.)"]
+   [:li "Wiring all of these items up produces a program"]]])
 
+(def whats-it-about-fp
+ [:section
+  [:h2 "Functional Program"]
+  [:h3 "A Growingly Popular Paradigm"]
+  [:ul
+   [:li "Computation is modeled as the application of functions to values"]
+   [:li "Values = no mutable state"]
+   [:li "To those new to FP, this makes NO sense"]
+   [:li "How can you do anything useful if nothing changes?"]]])
 
 (def slides
- [canvas
+ [intro
+  whats-it-about-oop
+  whats-it-about-fp
+  canvas
   predator-prey
   data-tips
-  intro
   overview
   (into [:section] fp/slides)                                  ;why? - Why FP? Maybe grab some from the FP talk.
   (into [:section] state/slides)                               ;what
