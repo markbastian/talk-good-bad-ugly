@@ -1,9 +1,0 @@
-;Nested & Heterogeneous
-(def data { :a 1 :b [1 2 3 4 5] :c { :name "Bob" :age 19 }})
-=> #'user/data
-
-(update-in data [:c :age] inc) ;Update value via a function
-=> {:c {:age 20, :name "Bob"}, :b [1 2 3 4 5], :a 1}
-
-(assoc-in data [:c "shoe size"] 14) ;insert or replace
-=> {:c {:age 19, :name "Bob", "shoe size" 14}, :b [1 2 3 4 5], :a 1}

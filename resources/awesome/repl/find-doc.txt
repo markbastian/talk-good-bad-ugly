@@ -1,6 +1,0 @@
-(find-doc "macro expansion")
--------------------------
-clojure.pprint/*print-suppress-namespaces*
-  Don't print namespaces with symbols. This is particularly useful when
-pretty printing the results of macro expansions
-=> nil
