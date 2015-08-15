@@ -41,6 +41,52 @@
 ;; X -> binary
 ;; X -> or X nil (queries)
 
+(def concerns
+  [:section
+   [:h2 "Separation of Concerns"]
+   [:ul
+    [:li "Data"]
+    [:li "Functions"]
+    [:li "State Management"]
+    [:li "UI/UX"]]])
+
+(def atomic-bridges
+  [:section
+   [:h2 "Atomic Bridges"]
+   [:ul
+    [:li "Clojure atoms, agents, and refs should manage all state"]
+    [:li "add-watch is your friend"]
+    [:li "They are the bridge"]
+    [:li "All interactions are with the refs"]
+    [:li "Compared to beans' complexity"]]])
+
+(def data
+  [:section
+   [:h2 "Data is King"]
+   [:ul
+    [:li "Model everything as data"]
+    [:li "Clojure Data Structures"
+     [:ul
+      [:li "Heterogeneous"]
+      [:li "Nestable"]
+      [:li "Common interfaces"]]]]])
+
+(def data-tips
+  [:section
+   [:h2 "Data Modeling Tips"]
+   [:ul
+    [:li "Entity Maps"]
+    [:li "Cycles via identifiers"]
+    [:li "Use UUIDs or other unique identifiers"]
+    [:li "Names make poor identifiers"]]])
+
+(def data-2
+  [:section
+   [:h2 "Start with Data"]
+   [:ul
+    [:li "Directly model your domain"]
+    [:li "The data structure will naturally evolve"]]])
+
 (def clojure-vs
  [:section
   [:h2 "Other Languages?"]
@@ -85,6 +131,45 @@
    [:li "Getting There"]
    [:li "Examples"]]])
 
+(def canvas
+  [:section
+   [:h2 "Example"]
+   [:div {:style  "float:left;width:400px;" }
+    [:ul
+     [:li "Flocking Behaviors"]
+     [:li "Based on Craig Reynold's Flocking Algorithms"]
+     [:li "Completely Stateless*"]]]
+   [:canvas {:id "flocking-canvas" :width 400 :height 400}]
+   [:script { :type "text/javascript" :src "js/flocking.js"}]
+   [:script { :type "text/javascript" }
+    "flocking.game_launcher.launch_app(document.getElementById(\"flocking-canvas\"), 400, 400, 20);"]
+   ])
+
+(def predator-prey
+  [:section
+   [:h2 "Stateless Predator Prey"]
+   [:canvas {:id "rk-canvas" :width 400 :height 400 :style "border:1px solid #000000;" }]
+   [:div
+    [:small [:label { :style "display: inline-block; width: 250px;" } "Initial Prey Population"]]
+    [:input {:id "prey-population-slider" :type "range" :min 0 :max 500 :step 1 }]]
+   [:div
+    [:small [:label { :style "display: inline-block; width: 250px;" } "Initial Predator Population"]]
+    [:input {:id "predator-population-slider" :type "range" :min 0 :max 500 :step 1 }]]
+   [:div
+    [:small [:label { :style "display: inline-block; width: 250px;" } "Reproduction Rate"]]
+    [:input {:id "reproduction-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+   [:div
+    [:small [:label { :style "display: inline-block; width: 250px;" } "Predation Rate"]]
+    [:input {:id "predation-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+   [:div
+    [:small [:label { :style "display: inline-block; width: 250px;" } "Growth Rate"]]
+    [:input {:id "growth-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+   [:div
+    [:small [:label { :style "display: inline-block; width: 250px;" } "Death Rate"]]
+    [:input {:id "death-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+   [:script { :type "text/javascript" :src "js/rk.js"}]
+   [:script { :type "text/javascript" } "numerics.canvasui.init(document.getElementById(\"rk-canvas\"));"]])
+
 ;Overview -
 ;The Problem - The transition to FP is very difficult in part due to understanding programming with no state.
 ;FP is good, though, becase.... (why)
@@ -97,8 +182,12 @@
 ; Stage 3 - Immutable classes (Scala, Clojure, Java with pain)
 ; Stage 4 - Concurrency primitives (Clojure only by default)
 
+
 (def slides
- [intro
+ [canvas
+  predator-prey
+  data-tips
+  intro
   overview
   (into [:section] fp/slides)                                  ;why? - Why FP? Maybe grab some from the FP talk.
   (into [:section] state/slides)                               ;what
