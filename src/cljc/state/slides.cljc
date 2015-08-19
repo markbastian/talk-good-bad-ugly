@@ -42,35 +42,6 @@
 ;; X -> binary
 ;; X -> or X nil (queries)
 
-(def concerns
-  [:section
-   [:h2 "Separation of Concerns"]
-   [:ul
-    [:li "Data"]
-    [:li "Functions"]
-    [:li "State Management"]
-    [:li "UI/UX"]]])
-
-(def atomic-bridges
-  [:section
-   [:h2 "Atomic Bridges"]
-   [:ul
-    [:li "Clojure atoms, agents, and refs should manage all state"]
-    [:li "add-watch is your friend"]
-    [:li "They are the bridge"]
-    [:li "All interactions are with the refs"]
-    [:li "Compared to beans' complexity"]]])
-
-(def data
-  [:section
-   [:h2 "Data is King"]
-   [:ul
-    [:li "Model everything as data"]
-    [:li "Clojure Data Structures"
-     [:ul
-      [:li "Heterogeneous"]
-      [:li "Nestable"]
-      [:li "Common interfaces"]]]]])
 
 (def data-tips
   [:section
@@ -134,13 +105,13 @@
 
 (def canvas
   [:section
-   [:h2 "Example"]
-   [:div {:style  "float:left;width:400px;" }
-    [:ul
-     [:li "Flocking Behaviors"]
-     [:li "Based on Craig Reynold's Flocking Algorithms"]
-     [:li "Completely Stateless*"]]]
-   [:canvas {:id "flocking-canvas" :width 400 :height 400}]
+   [:h2 "Teaser"]
+   [:ul {:style  "float:left;width:50%;" }
+    [:li "Flocking Behaviors"]
+    [:li "Based on Craig Reynold's Flocking Algorithms"]
+    [:li "Stateless*"]
+    [:li "Stick around to see how it's done"]]
+   [:canvas {:id "flocking-canvas" :style  "float:right;width:50%;" }]
    [:script { :type "text/javascript" :src "js/flocking.js"}]
    [:script { :type "text/javascript" }
     "flocking.game_launcher.launch_app(document.getElementById(\"flocking-canvas\"), 400, 400, 20);"]
@@ -177,12 +148,38 @@
  [:section
   [:h2 "Overview"]
   [:ul
-   [:li "A brief review of OOP"]
+   [:li "Why?"]
    [:li "Functional Programming"]
    [:li "State"]
-   [:li "Evolution"]
-   [:li "Examples"]
+   [:li "How - With Examples"]
    [:li "Conclusion"]]])
+
+(def why
+ [:section
+  [:h2 "Why am I (are you) here?"]
+  [:ul
+   [:li "JVM developer for over a decade"
+    [:ul
+     [:li "C++, VB before that"]
+     [:li "Lots of OOP"]]]
+   [:li "Scala (~2009)"
+    [:ul
+     [:li "Clojure was weird"]
+     [:li "I got FP"]
+     [:li "I had questions"]]]
+   [:li "Clojure"
+    [:ul
+     [:li "I got answers"]
+     [:li "I want you to fast track"]]]]])
+
+(def questions
+ [:section
+  [:h2 "Questions"]
+  [:ul
+   [:li "What is FP?"]
+   [:li "What is state?"]
+   [:li "How do I eliminate state?"]
+   [:li "How do I manage state?"]]])
 
 ;Overview -
 ;The Problem - The transition to FP is very difficult in part due to understanding programming with no state.
@@ -195,54 +192,14 @@
 ; Stage 2 - Persistent Collections (Scala, Clojure)
 ; Stage 3 - Immutable classes (Scala, Clojure, Java with pain)
 ; Stage 4 - Concurrency primitives (Clojure only by default)
-(def whats-it-about-oop
- [:section
-  [:h2 "Object Oriented Programming"]
-  [:h3 "A Familiar Paradigm"]
-  [:ul
-   [:li "Objects contain state in the form of fields"]
-   [:li "Fields are generally mutable (setters)"]
-   [:li "They are often observable or observed (e.g. Beans, PCLs, etc.)"]
-   [:li "Wiring all of these items up produces a program"]]])
 
-(def whats-it-about-fp
- [:section
-  [:h2 "Functional Program"]
-  [:h3 "A Growingly Popular Paradigm"]
-  [:ul
-   [:li "Computation is modeled as the application of functions to values"]
-   [:li "Values = no mutable state"]
-   [:li "To those new to FP, this makes NO sense"]
-   [:li "How can you do anything useful if nothing changes?"]]])
-
-;;$$ are not inline
-(def equations
-  [:section
-   [:p "$${dR\\over dt} = \\alpha R - \\beta R F$$"]
-   [:p "$$f(x) = sin(x)$$"]
-   [:p "This is an equation \\({dR\\over dt} = \\alpha R - \\beta R F\\) that is inline."]])
-
-(def functions
-  [:section
-   [:p "$${dR\\over dt} = \\alpha R - \\beta R F$$"]
-   [:p "This is an equation \\({dR\\over dt} = \\alpha R - \\beta R F\\) that is inline."]])
-
-
-(def code
-  [:section
-   [:h2 "Code"]
-   (c/code-block "src/cljc/state/test.clj" "clj")])
 
 (def slides
- [code
-  equations
-  intro
-  ;whats-it-about-oop
-  ;whats-it-about-fp
-  canvas
-  predator-prey
-  data-tips
+ [intro
   overview
+  canvas
+  why
+  questions
   (into [:section] fp/slides)                                  ;why? - Why FP? Maybe grab some from the FP talk.
   (into [:section] state/slides)                               ;what
   ;;Are these next two right?
@@ -250,6 +207,9 @@
   (into [:section] concurrency/slides)                               ;examples?
   ;the-challenge                                             ;move
   clojure-vs                                                ;move
+  predator-prey
+  data-tips
+  overview
   conclusion])
 
 (reveal/write-presentation

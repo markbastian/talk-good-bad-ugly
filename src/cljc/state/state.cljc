@@ -88,7 +88,7 @@
    [:table
     [:thead [:tr [:th "Aspect"][:th "OOP"][:th "FP"]]]
     [:tbody
-     [:tr [:td "State"][:td "Object Fields"][:td "Values"]]
+     [:tr [:td "State"][:td "Object Fields"][:td "Values/Data"]]
      [:tr [:td "Transition"][:td "Object Methods"][:td "Functions"]]
      [:tr [:td "Management"][:td "Object References"][:td "Concurrency Primitives"]]
      [:tr { :class :fragment } [:td "Concerns"][:td "Complected"][:td "Separated"]]]]])
