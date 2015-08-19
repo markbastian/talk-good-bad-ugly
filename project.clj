@@ -8,7 +8,8 @@
                  [org.clojure/clojurescript "1.7.48"]
                  [hiccup "1.0.5"]
                  [hiccup-bridge "1.0.1"]
-                 [org.clojure/data.json "0.2.5"]]
+                 [org.clojure/data.json "0.2.5"]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
 
   :jar-exclusions [#"\.swp|\.swo|\.DS_Store"]
   :profiles {:uberjar {:aot :all}

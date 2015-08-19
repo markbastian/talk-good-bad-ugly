@@ -1,0 +1,10 @@
+"a, b = 0,1"
+"a, b = 0,1"
+"a, b = 0,1"
+"a, b = 0,1" ;slow completes?
+"a, b = 0,1"
+"a, b = 0,1"
+"a, b = 0,1"
+"a, b = 1,0" ;both actions complete
+"a, b = 1,0"
+"a, b = 1,0"

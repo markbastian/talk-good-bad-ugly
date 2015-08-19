@@ -1,5 +1,6 @@
 (ns state.slides
  (:require [reveal.clj.core :as reveal]
+           [reveal.clj.code-sample :as c]
            [state.state :as state]
            [state.concurrency :as concurrency]
            [state.practice :as practice]
@@ -148,8 +149,8 @@
 (def predator-prey
   [:section
    [:h2 "Stateless Predator Prey"]
-   [:canvas {:id "rk-canvas" :width 400 :height 400 :style "border:1px solid #000000;" }]
-   [:div
+   [:div {:style  "float:left;width:400px;" }
+    [:div
     [:small [:label { :style "display: inline-block; width: 250px;" } "Initial Prey Population"]]
     [:input {:id "prey-population-slider" :type "range" :min 0 :max 500 :step 1 }]]
    [:div
@@ -166,7 +167,8 @@
     [:input {:id "growth-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
    [:div
     [:small [:label { :style "display: inline-block; width: 250px;" } "Death Rate"]]
-    [:input {:id "death-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+    [:input {:id "death-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]]
+   [:canvas {:id "rk-canvas" :width 400 :height 400 :style "border:1px solid #000000;" }]
    [:script { :type "text/javascript" :src "js/rk.js"}]
    [:script { :type "text/javascript" } "numerics.canvasui.init(document.getElementById(\"rk-canvas\"));"]])
 
@@ -213,10 +215,30 @@
    [:li "To those new to FP, this makes NO sense"]
    [:li "How can you do anything useful if nothing changes?"]]])
 
+;;$$ are not inline
+(def equations
+  [:section
+   [:p "$${dR\\over dt} = \\alpha R - \\beta R F$$"]
+   [:p "$$f(x) = sin(x)$$"]
+   [:p "This is an equation \\({dR\\over dt} = \\alpha R - \\beta R F\\) that is inline."]])
+
+(def functions
+  [:section
+   [:p "$${dR\\over dt} = \\alpha R - \\beta R F$$"]
+   [:p "This is an equation \\({dR\\over dt} = \\alpha R - \\beta R F\\) that is inline."]])
+
+
+(def code
+  [:section
+   [:h2 "Code"]
+   (c/code-block "src/cljc/state/test.clj" "clj")])
+
 (def slides
- [intro
-  whats-it-about-oop
-  whats-it-about-fp
+ [code
+  equations
+  intro
+  ;whats-it-about-oop
+  ;whats-it-about-fp
   canvas
   predator-prey
   data-tips

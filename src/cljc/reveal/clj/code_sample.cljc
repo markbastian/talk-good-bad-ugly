@@ -15,14 +15,14 @@
 
 (defn from-file [file-name] (from-string (slurp file-name)))
 
-(defn code-block [file-name language]
-  [:pre
-   [:code
-    {:contenteditable "contenteditable", :data-trim "data-trim" :class language}
-    (from-file file-name)]])
-
-;(prn (escape-html "MathJax.Hub.Config({
-;        tex2jax: {inlineMath: [[\"$\",\"$\"],[\"\\(\",\"\\)\"]]}
-;      });"))
-;
-;(prn "$$\\mathbf{W}_{f}$$")
+(defn code-block
+  ([file-name language]
+   [:pre
+    [:code
+     {:contenteditable "contenteditable", :data-trim "data-trim" :class language}
+     (from-file file-name)]])
+  ([file-name language style]
+   [:pre style
+    [:code
+     {:contenteditable "contenteditable", :data-trim "data-trim" :class language}
+     (from-file file-name)]]))

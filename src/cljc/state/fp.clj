@@ -27,25 +27,6 @@
    [:li "Data is immutable (values)"]
    [:li "Functions have no side-effects"]]])
 
-(def comparison
- [:section
-  [:h2 "Comparison of Paradigms"]
-  [:table
-   [:thead [:tr [:th "Aspect"][:th "OOP"][:th "FP"]]]
-   [:tbody
-    [:tr [:td "State"][:td "Mutable"][:td "Immutable/Values"]]
-    [:tr [:td "Verbs"][:td "Methods"][:td "Functions"]]]]])
-
-(def comparison2
- [:section
-  [:h2 "Comparison of Paradigms"]
-  [:table
-   [:thead [:tr [:th "Aspect"][:th "OOP"][:th "FP"]]]
-   [:tbody
-    [:tr [:td "State"][:td "Object Fields"][:td "Values"]]
-    [:tr [:td "Transition"][:td "Object Methods"][:td "Functions"]]
-    [:tr [:td "Management"][:td "Object References"][:td "Concurrency Primitives"]]]]])
-
 (def functions
  [:section
   [:h2 "Functions"]
@@ -115,7 +96,6 @@
   [[:section [:h2 "Functional Programming"]]
    what-is-fp
    what-is-fp2
-   comparison2
    tenets
    functions
    values

@@ -1,0 +1,10 @@
+"a, b = 0,1"
+"a, b = 0,1"
+"a, b = 0,1"
+"a, b = 1,1" ;slow completes
+"a, b = 1,1"
+"a, b = 1,1"
+"a, b = 1,1"
+"a, b = 1,0" ;slower completes
+"a, b = 1,0"
+"a, b = 1,0"

@@ -13,19 +13,20 @@
   [:span { :style "position:relative;bottom:0;right:-80;font-size:0.5em" }
    "https://www.google.com/search?q=what+is+state&oq=what+is+state" ]])
 
-(def what-is-state-2
+(def program-state
  [:section
-  [:h2 "What is State?"]
+  [:h2 "What is Program State?"]
   [:ul
-   [:li "State: A representation of the current computational universe"]
+   [:li "A representation of the system"]
    [:li "Often confusing because of differing definitions across communities"]
-   [:li "There are two kinds of state:"
+   [:li "There are two views on state:"
     [:ul
      [:li "Mutable: A changeable variable used to represent the &ldquo;current&rdquo; state of computation"
-      [:ul [:li "This is OOP state"]]]
+      [:ul
+       [:li "This is OOP state"]]]
      [:li "Immutable: A single, non-changing, constant value"
-      [:ul [:li "This is FP state"]]]]]]])
-
+      [:ul
+       [:li "This is FP state (what we want)"]]]]]]])
 
 (def the-problem-of-state
   [:section
@@ -54,69 +55,43 @@
     [:li "This is the functional view of reality"]]])
 
 (def multiverse-advantages
- [:section
-  [:h2 "What if things were Multiversic?"]
-  [:ul
-   [:li "It is trival to keep track of multiple universes"]
-   [:li "It is trivial to inspect a universe"]
-   [:li "Universes can share commonalities so no need to completely reconstruct"]]])
+  [:section
+   [:h2 "What if things were Multiversic?"]
+   [:ul
+    [:li "Universes are stable"]
+    [:li "It is trivial to inspect a universe"]
+    [:li "Universes can share commonalities"]
+    [:li "A device is needed to transit universes"]
+    [:li "You must keep track of extant universes"]]])
+
+(def this-is-fp
+  [:section
+   [:h2 "Multiversic = FP"]
+   [:ul
+    [:li "Values are stable"]
+    [:li "Values are trivial to inspect and understand"]
+    [:li "Values can share data"]
+    [:li "Functions are the means of transitioning between values"]
+    [:li "Keeping track of values is a separate concern"]]])
 
 (def state-concerns
   [:section
    [:h2 "Concerns of State in Either Model"]
    [:ul
-    [:li "Representation: How do I represent a given item?"]
-    [:li "Management: How do I keep track of items(s) of interest?"]
-    [:li "Transition: How do I get from one representation to another?"]]])
+    [:li "Representation: How do I represent state?"]
+    [:li "Transition: How do I get from one state representation to another?"]
+    [:li "Management: How do I keep track of states(s) of interest?"]]])
 
-(def universal-state-management
+(def comparison
   [:section
-   [:h2 "Universal/OOP State Management"]
-   [:ul
-    [:li "Representation: A mutable instance of a class"
-     [:ul [:li "This is where most of your changes occur"]]]
-    [:li "Management: A reference to one or more mutable objects"
-     [:ul [:li "Often doesn't change much"]]]
-    [:li "Transition: Getters, setters, and methods on tracked mutable objects"
-     [:ul [:li "Objects and methods are inextricably linked"]]]]])
-
-(def multiversic-state-management
-  [:section
-   [:h2 "Multiversal/FP State Management"]
-   [:ul
-    [:li "Representation: An immutable value representing the current state(s) of interest (data)"
-     [:ul [:li "Never changes"]]]
-    [:li "Management: A concurrency primitive(s) holding a reference to the value(s) of interest"
-     [:ul [:li "This is where most of your changes occur"]]]
-    [:li "Transition: Functions"
-     [:ul [:li "Objects and methods are independent of each other."]]]]])
-
-(def pros-cons-mutability
-  [:section
-   [:h2 "Pros/Cons of Mutable State"]
-   [:ul
-    [:li "Pros"
-     [:ul
-      [:li "Generally conceptully easier to think about"]
-      [:li "Performance can be better (with caveats)"]]]
-    [:li "Cons"
-     [:ul
-      [:li "Concurrency is non-trivial"]
-      [:li "There is no separation of concerns"]
-      [:li "Representation, management, and transition are tied together"]]]]])
-
-(def pros-cons-immutability
- [:section
-  [:h2 "Pros/Cons of Immutable State"]
-  [:ul
-   [:li "Pros"
-    [:ul
-     [:li "Concurrency is implicit"]
-     [:li "Concerns are completely separated"]]]
-   [:li "Cons"
-    [:ul
-     [:li "Often a difficult idea to get your head wrapped around"]
-     [:li "Not all languages support this model"]]]]])
+   [:h2 "Comparison of Paradigms"]
+   [:table
+    [:thead [:tr [:th "Aspect"][:th "OOP"][:th "FP"]]]
+    [:tbody
+     [:tr [:td "State"][:td "Object Fields"][:td "Values"]]
+     [:tr [:td "Transition"][:td "Object Methods"][:td "Functions"]]
+     [:tr [:td "Management"][:td "Object References"][:td "Concurrency Primitives"]]
+     [:tr { :class :fragment } [:td "Concerns"][:td "Complected"][:td "Separated"]]]]])
 
 (def immutability-wins
  [:section
@@ -128,16 +103,14 @@
 (def slides
   [[:section [:h1 "State"]]
    what-is-state
-   what-is-state-2
+   program-state
    the-problem-of-state
    the-universe
    the-multiverse
    multiverse-advantages
+   this-is-fp
    state-concerns
-   universal-state-management
-   multiversic-state-management
-   pros-cons-mutability
-   pros-cons-immutability
+   comparison
    immutability-wins])
 
 (reveal/write-presentation
