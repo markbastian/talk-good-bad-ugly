@@ -33,6 +33,17 @@
    (c/code-block "resources/state/atoms-out.txt" "clj"
                  {:style  "float:right;width:48%;height:100%;" })])
 
+(def swap-vs-reset
+  [:section
+   [:h2 "Swap vs. Reset"]
+   [:ul
+    [:li "swap! compares and retries - it never loses an operation"]
+    [:li "reset! just sets the value of the atom"]]
+   (c/code-block "resources/state/atom-swap-reset.txt" "clj"
+                 {:style  "float:left;width:48%;height:100%;font-size:40%;" })
+   (c/code-block "resources/state/atom-swap-reset-out.txt" "clj"
+                 {:style  "float:right;width:48%;height:100%;" })])
+
 (def agents
   [:section
    [:h2 "Agents"]
@@ -64,6 +75,7 @@
   [overview
    vars
    atoms
+   swap-vs-reset
    agents
    refs
    channels])

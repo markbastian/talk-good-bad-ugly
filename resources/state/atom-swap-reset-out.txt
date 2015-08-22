@@ -1,0 +1,9 @@
+=> #'user/a
+"original a = 0"
+=> nil
+=> nil
+"swap! a = 0"
+=> nil
+=> nil
+"reset! a = 3"
+=> nil

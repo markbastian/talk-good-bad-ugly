@@ -1,0 +1,15 @@
+(def a (atom 0))
+
+(prn (str "original a = " @a))
+
+(dotimes [_ 20]
+ (future (swap! a inc))
+ (future (swap! a dec)))
+
+(prn (str "swap! a = " @a))
+
+(dotimes [_ 20]
+ (future (reset! a (inc @a)))
+ (future (reset! a (dec @a))))
+
+(prn (str "reset! a = " @a))
