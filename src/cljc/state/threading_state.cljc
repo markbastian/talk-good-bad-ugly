@@ -3,21 +3,36 @@
 
 ;;Pattens for handling state
 (def state-representation
-  [:section
-   [:h2 "Representing Application State"]
-   [:ul
-    [:li "Use a very small number of <b>values</b> to represent application state."
-     [:ul
-      [:li "Small number is preferably 1"]]]
-    [:li "Maintain a persistent reference to your values using concurrency primitives"
-     [:ul
-      [:li "Atoms, agents, refs"]]]
-    [:li "Round-trip state values"
-     [:ul                                                   ;Make separate slide/topic
-      [:li "Primitive ->"]
-      [:li "Self similar functions"]
-      [:li "swap! or alter. Not reset."]
-      [:li "-> Primitive"]]]]])
+ [:section
+  [:h2 "Representing Application State"]
+  [:ul
+   [:li "Use a very small number of <b>values</b> to represent application state."
+    [:ul
+     [:li "Small number is preferably 1"]]]
+   [:li "Maintain a persistent reference to your values using concurrency primitives"
+    [:ul
+     [:li "Atoms, agents, refs"]]]
+   [:li "Round-trip state values"
+    [:ul                                                   ;Make separate slide/topic
+     [:li "Primitive ->"]
+     [:li "Self similar functions"]
+     [:li "swap! or alter. Not reset."]
+     [:li "-> Primitive"]]]]])
+
+(def state-changes
+ [:section
+  [:h2 "Interacting with State"]
+  [:ul
+   [:li "Producing Changes"
+    [:ul
+     [:li "UI layer (Swing, etc.) will call swap!, reset!, alter, etc."]
+     [:li "A single <b>set-validator!</b> can be used for input validation across ALL modifiers."]]]
+   [:li "Consuming Changes"
+    [:ul
+     [:li "Any number of <b>add-watch</b>es can be added to your reference"]
+     [:li "When watches are triggered, make changes to output system"]
+     [:li "Note: Watch for sync issues (SwingUtilities/invokeLater)"]]]
+   [:li "Concerns of I/O independent of value management"]]])
 
 (def functions
   [:section
@@ -50,6 +65,7 @@
 (def slides
   [[:section [:h1 "Threading State"]]
    state-representation
+   state-changes
    thread-ready
    minimize-state-variables])
 
