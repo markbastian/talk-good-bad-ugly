@@ -32,13 +32,27 @@
     [:li "This is relatively unique to Clojure"]
     [:li "Other FPs (e.g Scala) are still class driven"]]])
 
+(def data-representation
+  [:section
+   [:h2 "Representing Data in Clojure"]
+   [:ul
+    [:li "Primitives:"
+     [:ul
+      [:li "Primitives:"]
+      [:li "Data structures:"]]]
+    [:li "Data structures:"
+     [:ul
+      [:li "Primitives:"]
+      [:li "Data structures:"]]]]])
+
 (def slides
   [[:section
     [:h1 "State Representation"]
     [:h2 "How do I represent my domain?"]]
    comparison
    oop
-   fp-clojure])
+   fp-clojure
+   data-representation])
 
 (reveal/write-presentation
   {:out "state.html"
