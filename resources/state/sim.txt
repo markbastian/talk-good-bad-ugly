@@ -1,0 +1,9 @@
+(defn sim[{:keys [time boids world] :as s}]
+  (let [t (.getTime #?(:clj (java.util.Date.) :cljs (js/Date.)))
+        dt (* (- t (or time t)) 1E-3)
+        [ap av] (averages s)
+        new-boids (for [boid boids]
+                    (sim-boid boid boids dt world ap av))]
+    (-> s
+        (into { :time t })
+        (into { :boids new-boids }))))

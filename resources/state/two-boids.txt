@@ -1,0 +1,16 @@
+{:world {:minx -20, :maxx 20, :miny -20, :maxy 20},
+ :boids
+ [{:width 0.6, :height 1.0, :color [0 255 0], :max-speed 5.0,
+   :state [[2.9 -7.1] [0 0]],
+   :behaviors
+   {:wander {:direction 6.03, :rate 0.82, :strength 10},
+    :separation {:range 2, :strength 10},
+    :alignment {:strength 10},
+    :cohesion {:strength 50}}}
+  {:width 0.6, :height 1.0, :color [0 255 0], :max-speed 5.0,
+   :state [[-17.8 -18.1] [0 0]],
+   :behaviors
+   {:wander {:direction 3.35, :rate 0.59, :strength 10},
+    :separation {:range 2, :strength 10},
+    :alignment {:strength 10},
+    :cohesion {:strength 50}}}]}

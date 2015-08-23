@@ -1,0 +1,15 @@
+{:world {:minx -20, :maxx 20, :miny -20, :maxy 20},
+ :boids
+ [{:width 0.6,
+   :height 1.0,
+   :color [0 255 0],
+   :max-speed 5.0,
+   :state [[-9.694653093797063 12.87367344578675] [0 0]],
+   :behaviors
+   {:wander
+    {:direction 4.383119895514228,
+     :rate 0.28000187425997936,
+     :strength 10},
+    :separation {:range 2, :strength 10},
+    :alignment {:strength 10},
+    :cohesion {:strength 50}}}]}

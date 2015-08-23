@@ -1,0 +1,6 @@
+(defn averages [{:keys [boids]}]
+  (->> boids
+       (map :state)
+       (apply map vector)
+       (map #(apply mapv + %))
+       (mapv #(vec/scale % (/ 1.0 (count boids))))))

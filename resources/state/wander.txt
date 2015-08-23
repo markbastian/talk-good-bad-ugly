@@ -1,0 +1,5 @@
+(defn wander [[_ velocity] {:keys [direction strength]}]
+  (let [m (vec/mag velocity)
+        f (if (zero? m) velocity (map #(* (Math/sqrt 2.0) (/ % m)) velocity))
+        w (tovec strength direction)]
+    (vec/add f w)))

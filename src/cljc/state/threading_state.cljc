@@ -34,14 +34,6 @@
      [:li "Note: Watch for sync issues (SwingUtilities/invokeLater)"]]]
    [:li "Concerns of I/O independent of value management"]]])
 
-(def functions
-  [:section
-   [:h2 "Functions"]
-   [:ul
-    [:li "Many small functions are preferable to a few large ones"]
-    [:li "Compose behaviors from your small functions"]
-    [:li "Functions that operate on data are more flexible than
-    functions that operate on classes"]]])
 
 (def minimize-state-variables
   [:section
