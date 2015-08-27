@@ -44,15 +44,15 @@
   [:section
    [:h2 "Clojure Example"]
    [:p "Wandering"]
-   [:small (c/code-block "resources/state/wander.txt" "clj" {:style  "width:800px;" })]
+   [:small (c/code-block "resources/state/wander.txt" {:style  "width:800px;" })]
    [:p "Averaging"]
-   [:small (c/code-block "resources/state/average-flock.txt" "clj" {:style  "width:800px;" })]])
+   [:small (c/code-block "resources/state/average-flock.txt" {:style  "width:800px;" })]])
 
 (def clojure-example-sim
   [:section
    [:h2 "Clojure Example"]
    [:p "Flocking Function - Flock Simulation"]
-   (c/code-block "resources/state/sim.txt" "clj")
+   (c/code-block "resources/state/sim.txt")
    [:p "Key Concept: Full State In -> Full State Out"]])
 
 (def functions

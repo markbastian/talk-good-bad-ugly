@@ -8,20 +8,21 @@
 
 (.initialize
   js/Reveal
-  (clj->js {
-   :controls true
-   :progress true
-   :history true
-   :center true
-   :transition "slide"
-   :dependencies
-   [{:src "bower_components/reveal.js/lib/js/classList.js" :condition #(-> js/document .-body .-classList not)}
-   {:src "bower_components/reveal.js/plugin/markdown/marked.js" :condition #(-> js/document (.querySelector "[data-markdown]") not not)}
-   {:src "bower_components/reveal.js/plugin/markdown/markdown.js" :condition #(-> js/document (.querySelector "[data-markdown]") not not)}
-   { :src "bower_components/reveal.js/plugin/highlight/highlight.js"
-     :async true
-     :condition (fn [] (.querySelector js/document "pre code"))
-     :callback (fn [] (.initHighlightingOnLoad js/hljs)) }
-   {:src "bower_components/reveal.js/plugin/zoom-js/zoom.js" :async true}
-   {:src "bower_components/reveal.js/plugin/notes/notes.js" :async true}]
-   }))
+  (clj->js
+    {
+     :controls true
+     :progress true
+     :history true
+     :center true
+     :transition "slide"
+     :dependencies
+     [{:src "bower_components/reveal.js/lib/js/classList.js" :condition #(-> js/document .-body .-classList not)}
+      {:src "bower_components/reveal.js/plugin/markdown/marked.js" :condition #(-> js/document (.querySelector "[data-markdown]") not not)}
+      {:src "bower_components/reveal.js/plugin/markdown/markdown.js" :condition #(-> js/document (.querySelector "[data-markdown]") not not)}
+      { :src "bower_components/reveal.js/plugin/highlight/highlight.js"
+       :async true
+       :condition #(-> js/document (.querySelector "pre code") not not)
+       :callback #(.initHighlightingOnLoad js/hljs) }
+      {:src "bower_components/reveal.js/plugin/zoom-js/zoom.js" :async true}
+      {:src "bower_components/reveal.js/plugin/notes/notes.js" :async true}]
+     }))

@@ -1,7 +1,5 @@
 (ns reveal.clj.template
- (:require [hiccup.page :as hp]
-           [hiccup.page :as hp]
-           [hiccup.page :as hp]))
+ (:require [hiccup.page :as hp]))
 
 (defn basic [{ :keys [slides author title description]}]
  (hp/html5
@@ -33,7 +31,7 @@
   (hp/include-js "bower_components/reveal.js/lib/js/head.min.js"
                  "bower_components/reveal.js/js/reveal.js"
                  "bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full"
-                 "js/reveal-cl.js")
+                 "js/reveal-init.js")
 
   [:script { :type "text/x-mathjax-config" :src "MathJax.Hub.Config({\n        tex2jax: {inlineMath: [[&quot;$&quot;,&quot;$&quot;],[&quot;\\(&quot;,&quot;\\)&quot;]]}\n      });"}]
   ]))

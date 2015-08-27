@@ -25,12 +25,44 @@
       [:li "Has-a"]]]
     [:li "Object hierarchies are interdependent and non-separable"]]])
 
+;(def vars
+;  [:section
+;   [:h2 "Vars"]
+;   [:p "Thread-Local Binding"]
+;   (c/code-block "resources/state/vars.txt"
+;                 {:style  "float:left;width:48%;height:100%;font-size:40%;" })
+;   (c/code-block "resources/state/vars-out.txt"
+;                 {:style  "float:right;width:48%;height:100%;" })])
+
 (def oop-example
- [:section
-  [:h2 "OOP Example"]
-  [:p "Flocking Class Hierarchy"]
-  [:img {:src "images/flocking.svg"}]
-  [:p "Just relationships, no fields yet"]])
+  [:section
+   [:h2 "OOP Boids, Take 1"]
+   [:div
+    [:div {:style  "float:left;width:48%;" }
+     [:ul
+      [:li "8 Classes/Interfaces"]
+      [:li "159 LOC"]
+      [:li "Only relationships"]
+      [:li "Strong interdependence"]
+      [:li "No methods yet"]
+      [:li "No instances"]]]
+    [:div {:style  "float:right;width:48%;" }
+     [:img {:src "images/flocking-v0.png" } ]]]])
+
+(def oop-example-2
+  [:section
+   [:h2 "OOP Boids, Take 2"]
+   [:div
+    [:div {:style  "float:left;width:48%;" }
+     [:ul
+      [:li "12 Classes/Interfaces"]
+      [:li "179 LOC"]
+      [:li "Only relationships"]
+      [:li "Strong interdependence"]
+      [:li "No methods yet"]
+      [:li "No instances"]]]
+    [:div {:style  "float:right;width:48%;" }
+     [:img {:src "images/flocking-v1.png" } ]]]])
 
 (def fp-clojure
   [:section
@@ -58,13 +90,13 @@
  [:section
   [:h2 "Clojure Example"]
   [:p "Flocking Data Representation"]
-  (c/code-block "resources/state/single-boid.txt" "clj")])
+  (c/code-block "resources/state/single-boid.txt")])
 
 (def clojure-example-2
  [:section
   [:h2 "Clojure Example"]
   [:p "Multiple Boids"]
-  (c/code-block "resources/state/two-boids.txt" "clj")])
+  (c/code-block "resources/state/two-boids.txt")])
 
 (def principles
  [:section
@@ -84,11 +116,20 @@
   [:h2 "A Gotcha: Recursive References"]
   [:ul
    [:li "Suppose a person owns a car"]
-   [:li "...and the car is registered to it's owner"]
+   [:li "...and the car is registered to its owner"]
    [:li "Solution: Use unique identifiers"
     [:ul
      [:li "Unique is subjective"]
      [:li "It's OK to mix types"]]]]])
+
+(def data-tips
+  [:section
+   [:h2 "Data Modeling Tips"]
+   [:ul
+    [:li "Entity Maps"]
+    [:li "Cycles via identifiers"]
+    [:li "Use UUIDs or other unique identifiers"]
+    [:li "Names make poor identifiers"]]])
 
 (def conclusion
  [:section
@@ -107,12 +148,14 @@
    comparison
    oop
    oop-example
+   oop-example-2
    fp-clojure
    data-representation
    clojure-example
    clojure-example-2
    principles
    gotchas
+   data-tips
    conclusion])
 
 (reveal/write-presentation

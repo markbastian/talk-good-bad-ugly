@@ -80,7 +80,8 @@
    [:ul
     [:li "Representation: How do I represent state?"]
     [:li "Transition: How do I get from one state representation to another?"]
-    [:li "Management: How do I keep track of states(s) of interest?"]]])
+    [:li "Management: How do I keep track of states(s) of interest?"]
+    [:li "Interaction: How do I interact with my state(s) of interest?"]]])
 
 (def comparison
   [:section
@@ -94,12 +95,17 @@
      [:tr [:td "I/O"][:td "Object Methods"][:td "Loose Coupling"]]
      [:tr { :class :fragment } [:td "Concerns"][:td "Complected"][:td "Separated"]]]]])
 
-(def immutability-wins
- [:section
-  [:h2 "Since this talks is on FP..."]
-  [:ul
-   [:li "Immutability is obviously better"]
-   [:li "We'll now talk about how to do it"]]])
+(def conclusion
+  [:section
+   [:h2 "Conclusions on State"]
+   [:ul
+    [:li "OOP binds all aspects together via objects"
+     [:ul
+      [:li "Familiar pattern"]]]
+    [:li "FP/Clojure addresses each aspect differently"
+     [:ul
+      [:li "Unfamiliar pattern"]]]
+    [:li "The remainder of this talk will focus on how Clojure addressses these aspects"]]])
 
 (def slides
   [[:section [:h1 "State"]]
@@ -112,7 +118,7 @@
    this-is-fp
    state-concerns
    comparison
-   immutability-wins])
+   conclusion])
 
 (reveal/write-presentation
   {:out "state.html"
