@@ -19,18 +19,18 @@
   [:section
    [:h2 "Vars"]
    [:p "Thread-Local Binding"]
-   (c/code-block "resources/state/vars.txt" "clj"
+   (c/code-block "resources/state/vars.txt"
                  {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/vars-out.txt" "clj"
+   (c/code-block "resources/state/vars-out.txt"
                  {:style  "float:right;width:48%;height:100%;" })])
 
 (def atoms
   [:section
    [:h2 "Atoms"]
    [:p "Uncoordinated, Synchronous"]
-   (c/code-block "resources/state/atoms.txt" "clj"
+   (c/code-block "resources/state/atoms.txt"
                  {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/atoms-out.txt" "clj"
+   (c/code-block "resources/state/atoms-out.txt"
                  {:style  "float:right;width:48%;height:100%;" })])
 
 (def swap-vs-reset
@@ -39,36 +39,36 @@
    [:ul
     [:li "swap! compares and retries - it never loses an operation"]
     [:li "reset! just sets the value of the atom"]]
-   (c/code-block "resources/state/atom-swap-reset.txt" "clj"
+   (c/code-block "resources/state/atom-swap-reset.txt"
                  {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/atom-swap-reset-out.txt" "clj"
+   (c/code-block "resources/state/atom-swap-reset-out.txt"
                  {:style  "float:right;width:48%;height:100%;" })])
 
 (def agents
   [:section
    [:h2 "Agents"]
    [:p "Uncoordinated, Asynchronous"]
-   (c/code-block "resources/state/agents.txt" "clj"
+   (c/code-block "resources/state/agents.txt"
                  {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/agents-out.txt" "clj"
+   (c/code-block "resources/state/agents-out.txt"
                  {:style  "float:right;width:48%;height:100%;" })])
 
 (def refs
   [:section
    [:h2 "Refs"]
    [:p "Coordinated, Synchronous"]
-   (c/code-block "resources/state/refs.txt" "clj"
+   (c/code-block "resources/state/refs.txt"
                  {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/refs-out.txt" "clj"
+   (c/code-block "resources/state/refs-out.txt"
                  {:style  "float:right;width:48%;height:100%;" })])
 
 (def channels
   [:section
    [:h2 "Channels"]
    [:p "Coordinated, Synchronous"]
-   (c/code-block "resources/state/refs.txt" "clj"
+   (c/code-block "resources/state/refs.txt"
                  {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/refs-out.txt" "clj"
+   (c/code-block "resources/state/refs-out.txt"
                  {:style  "float:right;width:48%;height:100%;" })])
 
 (def slides

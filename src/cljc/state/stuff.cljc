@@ -68,4 +68,24 @@
 (def code
   [:section
    [:h2 "Code"]
-   (c/code-block "src/cljc/state/test.clj" "clj")])
+   (c/code-block "src/cljc/state/test.clj")])
+
+(def scala-the-good
+  [:section
+   [:h2 "Scala"]
+   [:ul
+    [:li "Introduced to Scala ~2009"]
+    [:li "Excellent bridge language"
+     [:ol
+      [:li "Scala as Java"]
+      [:li "Scala immutable collections"]
+      [:li "Scala collection operations"]
+      [:li "Functions everywhere"]]]]])
+
+(def scala-the-bad
+  [:section
+   [:h2 "Scala: Questions"]
+   [:ul
+    [:li "How do I do heterogeneous collections?"]
+    [:li "How do I modify nested value types (case classes)?"]
+    [:li "How do I manage global application state?"]]])

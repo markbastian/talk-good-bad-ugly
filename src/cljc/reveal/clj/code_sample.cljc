@@ -1,7 +1,5 @@
 (ns reveal.clj.code-sample
-  (:require [hiccup.util]
-            [clojure.repl :as r]
-            [clojure.repl :as r]))
+  (:require [hiccup.util]))
 
 (defn from-string [sample-str]
   (hiccup.util/escape-html
@@ -16,13 +14,13 @@
 (defn from-file [file-name] (from-string (slurp file-name)))
 
 (defn code-block
-  ([file-name language]
+  ([file-name]
    [:pre
     [:code
-     {:contenteditable "contenteditable", :data-trim "data-trim" :class language}
+     {:contenteditable "contenteditable", :data-trim "data-trim"}
      (from-file file-name)]])
-  ([file-name language style]
+  ([file-name style]
    [:pre style
     [:code
-     {:contenteditable "contenteditable", :data-trim "data-trim" :class language}
+     {:contenteditable "contenteditable", :data-trim "data-trim"}
      (from-file file-name)]]))

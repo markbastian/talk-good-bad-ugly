@@ -21,11 +21,13 @@
 
   :source-paths ["src/clj" "src/cljc"]
 
+  :java-source-paths ["src/java"]
+
   :clj {:builds [{ :source-paths ["src/clj" "src/cljc" "test"] }]}
 
   :cljsbuild {:builds [{ :source-paths ["src/cljs" "src/cljc"]
                         :compiler {
                                    :externs ["externs.js"]
-                                   :output-to "presentation/js/reveal-cl.js"
+                                   ;:output-to "presentation/js/reveal-cl.js"
                                    :optimizations :advanced
                                    :pretty-print true}}]})

@@ -24,10 +24,12 @@
   [:section
    [:h2 "Why FP?"]
    [:ul
-    [:li "Implicit concurrency"]
+    [:li "Implicit concurrency"
+     [:ul
+      [:li "Not the same as implicit parallelism"]]]
     [:li "Code is easier to reason about"]
-    [:li "Greater reuse"]
-    [:li "Easier abstractions lead to less code"]]])
+    [:li "Greater reuse: Actions vs. Hierarchies"]
+    [:li "Simpler abstractions lead to less code"]]])
 
 ;Note that it took me several years to get here.
 ;My goal is to accelerate the process for everyone else.
@@ -40,7 +42,7 @@
      [:ul
       [:li "The world has state...."]
       [:li "FP has no state..."]]]
-    [:li "That is what this talk is about"]]])
+    [:li "That is what this talk will address"]]])
 
 (def slides
   [[:section [:h2 "Functional Programming"]]

@@ -1,10 +1,12 @@
 (ns state.slides
- (:require [reveal.clj.core :as reveal]
-           [reveal.clj.code-sample :as c]
-           [state.state :as state]
-           [state.concurrency :as concurrency]
-           [state.practice :as practice]
-           [state.fp :as fp]))
+  (:require [reveal.clj.core :as reveal]
+            [reveal.clj.code-sample :as c]
+            [state.state :as state]
+            [state.representation :as r]
+            [state.transition :as t]
+            [state.management :as m]
+            [state.input-output :as io]
+            [state.fp :as fp]))
 
 ;;FP in the small is easy
 ;; - persistent collections
@@ -42,36 +44,12 @@
 ;; X -> binary
 ;; X -> or X nil (queries)
 
-
-(def data-tips
-  [:section
-   [:h2 "Data Modeling Tips"]
-   [:ul
-    [:li "Entity Maps"]
-    [:li "Cycles via identifiers"]
-    [:li "Use UUIDs or other unique identifiers"]
-    [:li "Names make poor identifiers"]]])
-
 (def data-2
   [:section
    [:h2 "Start with Data"]
    [:ul
     [:li "Directly model your domain"]
     [:li "The data structure will naturally evolve"]]])
-
-(def clojure-vs
- [:section
-  [:h2 "Other Languages?"]
-  [:ul
-   [:li "Scala"
-    [:ul
-     [:li "Akka"]
-     [:li "Not baked in"]
-     [:li "Actors"]
-     [:li "STM"]]]
-   [:li "Clojure"
-    [:ul
-     [:li "Batteries included"]]]]])
 
 (def conclusion
  [:section
@@ -89,7 +67,7 @@
   [:p "Mark Bastian"]
   [:small [:p
    [:a
-    {:href "mailto:markbastian@gmail.com?Subject=Syntax"}
+    {:href "mailto:markbastian@gmail.com?Subject=FP Stateless Talk"}
     "markbastian@gmail.com"]]
   [:p [:a {:href "https://twitter.com/mark_bastian" } "@mark_bastian"]]]
   [:p "3/24/2015"]])
@@ -98,6 +76,7 @@
  [:section
   [:h2 "Overview"]
   [:ul
+   [:li "Why this talk"]
    [:li "Functional Programming"]
    [:li "State and Statelessness"]
    [:li "Getting There"]
@@ -143,20 +122,9 @@
    [:script { :type "text/javascript" :src "js/rk.js"}]
    [:script { :type "text/javascript" } "numerics.canvasui.init(document.getElementById(\"rk-canvas\"));"]])
 
-
-(def overview
- [:section
-  [:h2 "Overview"]
-  [:ul
-   [:li "Why?"]
-   [:li "Functional Programming"]
-   [:li "State"]
-   [:li "How - With Examples"]
-   [:li "Conclusion"]]])
-
 (def why
  [:section
-  [:h2 "Why am I (are you) here?"]
+  [:h2 "Why this talk"]
   [:ul
    [:li "JVM developer for over a decade"
     [:ul
@@ -164,51 +132,29 @@
      [:li "Lots of OOP"]]]
    [:li "Scala (~2009)"
     [:ul
-     [:li "Clojure was weird"]
-     [:li "I got FP"]
-     [:li "I had questions"]]]
+     [:li "Excellent multiparadigm language"]
+     [:li "Doesn't address all my concerns"]
+     [:li "Shares many problems of OOP"]]]
    [:li "Clojure"
     [:ul
-     [:li "I got answers"]
-     [:li "I want you to fast track"]]]]])
-
-(def questions
- [:section
-  [:h2 "Questions"]
-  [:ul
-   [:li "What is FP?"]
-   [:li "What is state?"]
-   [:li "How do I eliminate state?"]
-   [:li "How do I manage state?"]]])
-
-;Overview -
-;The Problem - The transition to FP is very difficult in part due to understanding programming with no state.
-;FP is good, though, becase.... (why)
-;What does it actually mean to be stateless (what)
-;It can be done, though (how)
-;Do I focus on Clojure or do I transition from Java -> Scala -> Clojure?
-;At some point (maybe in why), discuss all of the best practice talks about immutability. Note that this flies in the face of beans+listeners, etc.
-; Stage 1 - Lambdas/Closures (all with J8+)
-; Stage 2 - Persistent Collections (Scala, Clojure)
-; Stage 3 - Immutable classes (Scala, Clojure, Java with pain)
-; Stage 4 - Concurrency primitives (Clojure only by default)
-
+     [:li "Seeming complexity (actually simple)"]
+     [:li "Addresses everything"]]]
+   [:li "I want you to fast track to Clojure"]]])
 
 (def slides
  [intro
   overview
-  canvas
   why
-  questions
   (into [:section] fp/slides)                                  ;why? - Why FP? Maybe grab some from the FP talk.
   (into [:section] state/slides)                               ;what
+  canvas
   ;;Are these next two right?
-  (into [:section] practice/slides)                               ;how
-  (into [:section] concurrency/slides)                               ;examples?
-  ;the-challenge                                             ;move
-  clojure-vs                                                ;move
+  (into [:section] r/slides)
+  (into [:section] t/slides)
+  (into [:section] m/slides)
+  (into [:section] io/slides)
   predator-prey
-  data-tips
+  ;data-tips
   overview
   conclusion])
 
