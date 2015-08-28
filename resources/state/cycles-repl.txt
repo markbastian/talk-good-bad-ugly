@@ -1,0 +1,14 @@
+(clojure.pprint/pprint
+  (-> original-van-halen
+      (leave-band {:musician "David Lee Roth" :band "Van Halen"})
+      (join-band {:musician "Sammy Hagar" :band "Van Halen"})))
+
+{"Van Halen"
+ {:members
+  #{"Alex Van Halen" "Eddie Van Halen" "Sammy Hagar"
+    "Michael Anthony"}},
+ "Eddie Van Halen" {:bands #{"Van Halen"}},
+ "David Lee Roth" {:bands #{}},
+ "Alex Van Halen" {:bands #{"Van Halen"}},
+ "Michael Anthony" {:bands #{"Van Halen"}},
+ "Sammy Hagar" {:bands ("Van Halen")}}

@@ -1,0 +1,22 @@
+(def planetoid-update
+  (update-in
+    universe-model
+    [:galaxies :milky-way :systems :sol]
+    dissoc :pluto))
+
+{:galaxies
+ {:milky-way
+  {:systems
+   {:sol
+    {:mercury {:common-name "Mercury"},
+     :uranus {:common-name "Uranus"},
+     :mars {:common-name "Mars"},
+     :neptune {:common-name "Neptune"},
+     :jupiter {:common-name "Jupiter"},
+     :earth
+     {:common-name "Earth",
+      :hitchiker-report {:reporter "Unknown", :status "Harmless"}},
+     :venus {:common-name "Venus"},
+     :saturn {:common-name "Saturn"}},
+    :frak {}}},
+  :andromeda {}}}

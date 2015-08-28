@@ -7,12 +7,133 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script><!--[if lt IE 9]>
 		<script src="bower_components/html5shiv/dist/html5shiv.js"></script>
-<<<<<<< HEAD
-		<![endif]--></head><body><div class="reveal"><!-- Any section element inside of this container is displayed as a slide --><div class="slides"><section><h2>Pillars of Paradigms</h2><div><div style="float:left;width:50%;"><p>OOP</p><ul><li>Encapsulation</li><li>Polymorphism</li><li>Inheritance</li></ul></div><div style="float:right;width:50%;"><p>FP</p><ul><li>Functions as citizens</li><li>Values</li><li>Referential Transparency</li></ul></div></div><p>These are not mutally exclusive</p></section><section><h2>Paradigms and Languages</h2><ul><li>Paradigm: A programming discipline or practice based upon a certain idea or philosophy<ul><li>Procedural/Imperative</li><li>Object Oriented</li><li>Functional</li><li>There are others</li></ul></li><li>Languages are generally designed around a given paradigm</li><li>No language is 100% one paradigm or 0% another</li><li>This talk will address some aspects of how FP can and cannot be done in Java and Scala</li></ul></section><section><h2>Pillars of Paradigms</h2><div><div style="float:left;width:50%;"><p>OOP</p><ul><li>Encapsulation</li><li>Polymorphism</li><li>Inheritance</li></ul></div><div style="float:right;width:50%;"><p>FP</p><ul><li>Functions as citizens</li><li>Values</li><li>Referential Transparency</li></ul></div></div><p>These are not mutally exclusive</p></section><section><h2>Functions</h2><ul><li>Map inputs to outputs</li><li>Values vs. variables</li><li>No side-effects</li></ul></section><section><h2>Values</h2><ul><li>Map inputs to outputs</li><li>Values vs. variables</li><li>No side-effects</li></ul></section><section><h2>Referential Transparency</h2><ul><li>Map inputs to outputs</li><li>Values vs. variables</li><li>No side-effects</li></ul></section><section><h2>Functional Programming</h2></section><section><h2>What is Functional Programming?</h2><blockquote cite="http://en.wikipedia.org/wiki/Functional_programming">&ldquo;In computer science, functional programming is a programming paradigm, a style of building the structure and
-  elements of computer programs, that treat computation as the evaluation of mathematical functions and avoids
-  changing-state and mutable data.&rdquo;</blockquote><span style="position:absolute;bottom:-10;right:150;font-size:0.5em">http://en.wikipedia.org/wiki/Functional_programming</span></section><section><h2>Properties of Functions</h2><img src="images/191px-Function_machine2.png"><ul style="float:right;width:50%;"><li>Map inputs to outputs</li><li>Values vs. variables</li><li>No side-effects</li></ul></section><section><h2>Why FP?</h2><ul><li>Implicit concurrency</li><li>Code is easier to reason about</li><li>Greater reuse</li><li>Easier abstractions lead to less code</li></ul></section><section><h2>However...</h2><ul><li>FP tends to be very confusing coming from an OOP background</li><li>How can you do anything useful when there is no state or side-effects?<ul><li>The world has state....</li><li>FP has no state...</li></ul></li><li>That is what this talk is about</li></ul></section></div></div><script src="bower_components/reveal.js/lib/js/head.min.js" type="text/javascript"></script><script src="bower_components/reveal.js/js/reveal.js" type="text/javascript"></script><script src="bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script><script src="js/reveal-cl.js" type="text/javascript"></script><script src="MathJax.Hub.Config({
-=======
-		<![endif]--></head><body><div class="reveal"><!-- Any section element inside of this container is displayed as a slide --><div class="slides"><section><h1>Challenges</h1><h2>Common barriers to functional thinking</h2></section><section><h2>Immutability</h2><ul><li>If nothing changes, how do you do anything?</li></ul></section><section><h2>Deep Modification</h2><ul><li>How do I modify that field way down there?</li></ul></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:48%;"><ul><li>Parent-Child</li><li>Ownership</li><li>You can't easily update both entities</li><li>In mutable OOP this is a trivial issue</li><li>...but it adds complexity</li></ul></div><div style="float:right;width:48%;"><img src="images/bidi-mutable.png"></div></div></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:48%;"><ul><li>Create an entity map</li><li>Use unique IDs for each entity</li><li>Now updates are decoupled</li></ul></div><div style="float:right;width:48%;"><img src="images/bidi-mutable.png"></div></div></section></div></div><script src="bower_components/reveal.js/lib/js/head.min.js" type="text/javascript"></script><script src="bower_components/reveal.js/js/reveal.js" type="text/javascript"></script><script src="bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script><script src="js/reveal-init.js" type="text/javascript"></script><script src="MathJax.Hub.Config({
->>>>>>> b582970a8b245ed51ddca2b30a987ef5bcd28c33
+		<![endif]--></head><body><div class="reveal"><!-- Any section element inside of this container is displayed as a slide --><div class="slides"><section><h1>Challenges</h1><h2>Common barriers to functional thinking</h2></section><section><h2>The Barriers</h2><ul><li>Immubility</li><li>Deep Modification</li><li>Cyclical Relationships</li><li>Application State</li></ul></section><section><h2>Immutability</h2><ul><li>If nothing changes, how do you do anything?</li></ul></section><section><h2>Deep Modification</h2><ul><li>How do I modify a deeply nested field?</li></ul></section><section><h2>Deep Modification</h2><ul><li>A weakness of value types without API support</li><li>One solution: Wide and shallow</li><li>Clojure collections make deep modification trivial</li></ul></section><section><h2>Deep Modification Problem</h2><pre><code contenteditable="contenteditable" data-trim="data-trim">(def universe-model
+  { :galaxies
+   { :milky-way
+     { :systems
+      { :sol
+       { :mercury { :common-name &quot;Mercury&quot; }
+        :venus { :common-name &quot;Venus&quot; }
+        :earth { :common-name &quot;Earth&quot;
+                :hitchiker-report { :reporter &quot;Unknown&quot;
+                                   :status &quot;Harmless&quot;} }
+        :mars { :common-name &quot;Mars&quot; }
+        :jupiter { :common-name &quot;Jupiter&quot; }
+        :saturn { :common-name &quot;Saturn&quot; }
+        :uranus { :common-name &quot;Uranus&quot; }
+        :neptune { :common-name &quot;Neptune&quot; }
+        :pluto { :common-name &quot;Pluto&quot; } }
+       :frak {}}}
+    :andromeda { }}})</code></pre></section><section><h2>Deep Modification</h2><p>Replacing Earth's Status</p><small style="width:100%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(-&gt; universe-model
+    (assoc-in [:galaxies :milky-way :systems :sol :earth :hitchiker-report :status] &quot;Mostly Harmless&quot;)
+    (assoc-in [:galaxies :milky-way :systems :sol :earth :hitchiker-report :reporter] &quot;Ford Prefect&quot;)
+    pp/pprint)
+
+{:galaxies
+ {:milky-way
+  {:systems
+   {:sol
+    {:mercury {:common-name &quot;Mercury&quot;},
+     :uranus {:common-name &quot;Uranus&quot;},
+     :mars {:common-name &quot;Mars&quot;},
+     :pluto {:common-name &quot;Pluto&quot;},
+     :neptune {:common-name &quot;Neptune&quot;},
+     :jupiter {:common-name &quot;Jupiter&quot;},
+     :earth
+     {:common-name &quot;Earth&quot;,
+      :hitchiker-report
+      {:reporter &quot;Ford Prefect&quot;, :status &quot;Mostly Harmless&quot;}},
+     :venus {:common-name &quot;Venus&quot;},
+     :saturn {:common-name &quot;Saturn&quot;}},
+    :frak {}}},
+  :andromeda {}}}</code></pre></small></section><section><h2>Deep Modification</h2><p>Updating Earth's Status</p><small style="width:100%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def mostly-harmless-update
+    (update-in
+      universe-model
+      [:galaxies :milky-way :systems :sol :earth :hitchiker-report]
+      into { :reporter &quot;Ford Prefect&quot; :status &quot;Mostly Harmless&quot;}))
+
+(pp/pprint mostly-harmless-update)
+{:galaxies
+ {:milky-way
+  {:systems
+   {:sol
+    {:mercury {:common-name &quot;Mercury&quot;},
+     :uranus {:common-name &quot;Uranus&quot;},
+     :mars {:common-name &quot;Mars&quot;},
+     :pluto {:common-name &quot;Pluto&quot;},
+     :neptune {:common-name &quot;Neptune&quot;},
+     :jupiter {:common-name &quot;Jupiter&quot;},
+     :earth
+     {:common-name &quot;Earth&quot;,
+      :hitchiker-report
+      {:reporter &quot;Ford Prefect&quot;, :status &quot;Mostly Harmless&quot;}},
+     :venus {:common-name &quot;Venus&quot;},
+     :saturn {:common-name &quot;Saturn&quot;}},
+    :frak {}}},
+  :andromeda {}}}
+</code></pre></small></section><section><h2>Deep Modification</h2><p>Removing Pluto</p><small style="width:100%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def planetoid-update
+  (update-in
+    universe-model
+    [:galaxies :milky-way :systems :sol]
+    dissoc :pluto))
+
+{:galaxies
+ {:milky-way
+  {:systems
+   {:sol
+    {:mercury {:common-name &quot;Mercury&quot;},
+     :uranus {:common-name &quot;Uranus&quot;},
+     :mars {:common-name &quot;Mars&quot;},
+     :neptune {:common-name &quot;Neptune&quot;},
+     :jupiter {:common-name &quot;Jupiter&quot;},
+     :earth
+     {:common-name &quot;Earth&quot;,
+      :hitchiker-report {:reporter &quot;Unknown&quot;, :status &quot;Harmless&quot;}},
+     :venus {:common-name &quot;Venus&quot;},
+     :saturn {:common-name &quot;Saturn&quot;}},
+    :frak {}}},
+  :andromeda {}}}</code></pre></small></section><section><h2>Immutable Cyclical References</h2><ul><li>How can immutable interdependent relationships be created</li></ul></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:48%;"><ul><li>Parent-Child</li><li>Ownership</li><li>You can't easily update both entities</li><li>In mutable OOP this is a trivial issue</li><li>...but it adds complexity<ul><li>Serialization</li><li>3rd Party Registrar</li></ul></li></ul></div><div style="float:right;width:48%;"><img src="images/bidi-mutable-band.jpg"></div></div></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:43%;"><ul><li>Create an entity map</li><li>Use unique IDs for each entity</li><li>Now updates are decoupled</li></ul></div><div style="float:right;width:55%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def original-van-halen
+  { &quot;Van Halen&quot;
+   { :members #{ &quot;Eddie Van Halen&quot;
+                &quot;David Lee Roth&quot;
+                &quot;Alex Van Halen&quot;
+                &quot;Michael Anthony&quot; }}
+   &quot;Eddie Van Halen&quot;
+   {:bands #{&quot;Van Halen&quot;} }
+   &quot;David Lee Roth&quot;
+   {:bands #{&quot;Van Halen&quot;} }
+   &quot;Alex Van Halen&quot;
+   {:bands #{&quot;Van Halen&quot;} }
+   &quot;Michael Anthony&quot;
+   {:bands #{&quot;Van Halen&quot;} }})</code></pre></div></div></section><section><h2>Constructing Models with Cycles</h2><pre><code contenteditable="contenteditable" data-trim="data-trim">(def original-van-halen
+  { &quot;Van Halen&quot; { :members #{ &quot;Eddie Van Halen&quot;
+                             &quot;David Lee Roth&quot;
+                             &quot;Alex Van Halen&quot;
+                             &quot;Michael Anthony&quot; }}
+   &quot;Eddie Van Halen&quot; {:bands #{&quot;Van Halen&quot;} }
+   &quot;David Lee Roth&quot; {:bands #{&quot;Van Halen&quot;} }
+   &quot;Alex Van Halen&quot; {:bands #{&quot;Van Halen&quot;} }
+   &quot;Michael Anthony&quot; {:bands #{&quot;Van Halen&quot;} }})</code></pre></section><section><h2>Updating Immutable Cycles</h2><pre><code contenteditable="contenteditable" data-trim="data-trim">(defn join-band [state {:keys[musician band]}]
+  (-&gt; state
+      (update-in [band :members] conj musician)
+      (update-in [musician :bands] conj band)))
+
+(defn leave-band [state {:keys[musician band]}]
+  (-&gt; state
+      (update-in [band :members] disj musician)
+      (update-in [musician :bands] disj band)))</code></pre></section><section><h2>Cycles in Action</h2><pre><code contenteditable="contenteditable" data-trim="data-trim">(clojure.pprint/pprint
+  (-&gt; original-van-halen
+      (leave-band {:musician &quot;David Lee Roth&quot; :band &quot;Van Halen&quot;})
+      (join-band {:musician &quot;Sammy Hagar&quot; :band &quot;Van Halen&quot;})))
+
+{&quot;Van Halen&quot;
+ {:members
+  #{&quot;Alex Van Halen&quot; &quot;Eddie Van Halen&quot; &quot;Sammy Hagar&quot;
+    &quot;Michael Anthony&quot;}},
+ &quot;Eddie Van Halen&quot; {:bands #{&quot;Van Halen&quot;}},
+ &quot;David Lee Roth&quot; {:bands #{}},
+ &quot;Alex Van Halen&quot; {:bands #{&quot;Van Halen&quot;}},
+ &quot;Michael Anthony&quot; {:bands #{&quot;Van Halen&quot;}},
+ &quot;Sammy Hagar&quot; {:bands (&quot;Van Halen&quot;)}}</code></pre></section><section><h2>Tips With Cyclic References</h2><ul><li>Do you need a cyclical relationship?</li><li>Keys should be invariant over all time<ul><li>Names are horrible keys</li><li>UUIDs make good keys</li></ul></li><li>Don't fear heterogeneous keys</li></ul></section></div></div><script src="bower_components/reveal.js/lib/js/head.min.js" type="text/javascript"></script><script src="bower_components/reveal.js/js/reveal.js" type="text/javascript"></script><script src="bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script><script src="js/reveal-init.js" type="text/javascript"></script><script src="MathJax.Hub.Config({
         tex2jax: {inlineMath: [[&amp;quot;$&amp;quot;,&amp;quot;$&amp;quot;],[&amp;quot;\(&amp;quot;,&amp;quot;\)&amp;quot;]]}
       });" type="text/x-mathjax-config"></script></body></html>

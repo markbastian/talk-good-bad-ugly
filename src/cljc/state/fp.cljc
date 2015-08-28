@@ -1,17 +1,7 @@
 (ns state.fp
   (:require [reveal.clj.core :as reveal]))
 
-(def what-is-fp2
- [:section
-  [:h2 "What is Functional Programming?"]
-  [:blockquote { :cite "http://en.wikipedia.org/wiki/Functional_programming"}
-  "&ldquo;In computer science, functional programming is a programming paradigm, a style of building the structure and
-  elements of computer programs, that treat computation as the evaluation of mathematical functions and avoids
-  changing-state and mutable data.&rdquo;"]
-  [:span { :style "position:absolute;bottom:-10;right:150;font-size:0.5em" }
-   "http://en.wikipedia.org/wiki/Functional_programming" ]])
-
-(def functional-programming-functional-languages
+(def paradigms-and-languages
   [:section
    [:h2 "Paradigms and Languages"]
    [:ul
@@ -24,6 +14,23 @@
     [:li "Languages are generally designed around a given paradigm"]
     [:li "No language is 100% one paradigm or 0% another"]
     [:li "This talk will address some aspects of how FP can and cannot be done in Java and Scala"]]])
+
+(def what-is-fp
+  [:section
+   [:h2 "What is Functional Programming?"]
+   [:blockquote { :cite "http://en.wikipedia.org/wiki/Functional_programming"}
+    "&ldquo;In computer science, functional programming is a programming paradigm, a style of building the structure and
+    elements of computer programs, that treat computation as the evaluation of mathematical functions and avoids
+    changing-state and mutable data.&rdquo;"]
+   [:span { :style "position:absolute;bottom:-10;right:150;font-size:0.5em" }
+    "http://en.wikipedia.org/wiki/Functional_programming" ]])
+
+(def fn-diagram
+  [:section
+   [:h2 "Functional Programming"]
+   [:p "The canonical function picture"]
+   [:img {:src "images/191px-Function_machine2.png"}]
+   [:p "The presence of functions is a necessary but not sufficient condition for FP"]])
 
 (def fp-pillars
   [:section
@@ -38,7 +45,7 @@
     [:div {:style  "float:right;width:50%;" }
      [:p "FP"]
      [:ul
-      [:li "Functions as citizens"]
+      [:li "Functions as Citizens"]
       [:li "Values"]
       [:li "Referential Transparency"]]]]
    [:p "These are not mutally exclusive"]])
@@ -62,15 +69,19 @@
     [:li "Values are immutable data"]
     [:li "Primitives: numbers, strings, booleans, etc."]
     [:li "Value types: Finalized classes with hashcode and equals"]
-    [:li "Immutable collections"]]])
+    [:li "Immutable collections"]
+    [:li "State is not a value"]]])
 
 (def referential-transparency
   [:section
    [:h2 "Referential Transparency"]
    [:ul
-    [:li "Map inputs to outputs"]
-    [:li "Values vs. variables"]
-    [:li "No side-effects"]]])
+    [:li "A function that can be replaced by its value is referentially transparent"]
+    [:li "The same inputs always map to the same outputs"]
+    [:li "In mathematics all functions are referentially transparent"]
+    [:li "In programming this is not always the case"]
+    [:li "Referential Transparencey = No Side Effects"]
+    [:li "Convention over enforced in most languages"]]])
 
 ;Where to put global state mangement
 ;OOP does it easily, but now well
@@ -79,24 +90,18 @@
 
 (def language-support
   [:section
-   [:h2 "Language Supprt"]
-   [:table
+   [:h2 "Language Support"]
+   [:small [:table
     [:thead [:tr [:th "Aspect"][:th "Java"][:th "Scala"] [:th "Clojure"]]]
     [:tbody
-     [:tr [:td "State"][:td "Object Fields"][:td "Values/Data"][:td "Values/Data"]]
-     [:tr [:td "Transition"][:td "Object Methods"][:td "Functions"][:td "Functions"]]
-     [:tr [:td "Management"][:td "Object References"][:td "Concurrency Primitives"][:td "Concurrency Primitives"]]
-     [:tr [:td "I/O"][:td "Object Methods"][:td "Loose Coupling"][:td "Loose Coupling"]]
-     [:tr { :class :fragment } [:td "Concerns"][:td "Complected"][:td "Separated"][:td "Separated"]]]]])
+     [:tr [:td "Functions"][:td "Partial (J8)"][:td "First Class"][:td "First Class"]]
+     [:tr [:td "Value Classes"][:td "With Difficulty"][:td "Case Classes"][:td "defrecord"]]
+     [:tr [:td "Immutable Collections"][:td "No"][:td "Yes"][:td "Yes - Core"]]
+     [:tr [:td "Referential Transparency"][:td "Non-default"][:td "if FP"][:td "Default"]]
+     [:tr { :class :fragment } [:td "Encapsulation"][:td "Yes"][:td "Yes"][:td "Yes"]]
+     [:tr { :class :fragment } [:td "Inheritance"][:td "Yes"][:td "Yes"][:td "Yes"]]
+     [:tr { :class :fragment } [:td "Polymorphism"][:td "Single Dispatch"][:td "Single Dispatch"][:td "Multi Dispatch"]]]]]])
 
-(def fn-diagram
- [:section
-  [:h2 "Properties of Functions"]
-  [:img {:src "images/191px-Function_machine2.png"}]
-  [:ul {:style  "float:right;width:50%;" }
-   [:li "Map inputs to outputs"]
-   [:li "Values vs. variables"]
-   [:li "No side-effects"]]])
 
 (def why-fp
   [:section
@@ -123,16 +128,15 @@
     [:li "That is what this talk will address"]]])
 
 (def slides
-  [fp-pillars
-   functional-programming-functional-languages
+  [[:section [:h2 "Functional Programming"]]
+   paradigms-and-languages
+   what-is-fp
+   fn-diagram
    fp-pillars
    functions
    values
    referential-transparency
    language-support
-   [:section [:h2 "Functional Programming"]]
-   what-is-fp2
-   fn-diagram
    why-fp
    the-challenge])
 

@@ -1,0 +1,9 @@
+(def original-van-halen
+  { "Van Halen" { :members #{ "Eddie Van Halen"
+                             "David Lee Roth"
+                             "Alex Van Halen"
+                             "Michael Anthony" }}
+   "Eddie Van Halen" {:bands #{"Van Halen"} }
+   "David Lee Roth" {:bands #{"Van Halen"} }
+   "Alex Van Halen" {:bands #{"Van Halen"} }
+   "Michael Anthony" {:bands #{"Van Halen"} }})

@@ -1,0 +1,18 @@
+(def universe-model
+  { :galaxies
+   { :milky-way
+     { :systems
+      { :sol
+       { :mercury { :common-name "Mercury" }
+        :venus { :common-name "Venus" }
+        :earth { :common-name "Earth"
+                :hitchiker-report { :reporter "Unknown"
+                                   :status "Harmless"} }
+        :mars { :common-name "Mars" }
+        :jupiter { :common-name "Jupiter" }
+        :saturn { :common-name "Saturn" }
+        :uranus { :common-name "Uranus" }
+        :neptune { :common-name "Neptune" }
+        :pluto { :common-name "Pluto" } }
+       :frak {}}}
+    :andromeda { }}})

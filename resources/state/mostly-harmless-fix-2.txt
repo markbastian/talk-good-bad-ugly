@@ -1,0 +1,25 @@
+(def mostly-harmless-update
+    (update-in
+      universe-model
+      [:galaxies :milky-way :systems :sol :earth :hitchiker-report]
+      into { :reporter "Ford Prefect" :status "Mostly Harmless"}))
+
+(pp/pprint mostly-harmless-update)
+{:galaxies
+ {:milky-way
+  {:systems
+   {:sol
+    {:mercury {:common-name "Mercury"},
+     :uranus {:common-name "Uranus"},
+     :mars {:common-name "Mars"},
+     :pluto {:common-name "Pluto"},
+     :neptune {:common-name "Neptune"},
+     :jupiter {:common-name "Jupiter"},
+     :earth
+     {:common-name "Earth",
+      :hitchiker-report
+      {:reporter "Ford Prefect", :status "Mostly Harmless"}},
+     :venus {:common-name "Venus"},
+     :saturn {:common-name "Saturn"}},
+    :frak {}}},
+  :andromeda {}}}

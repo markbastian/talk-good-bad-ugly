@@ -1,0 +1,9 @@
+(defn join-band [state {:keys[musician band]}]
+  (-> state
+      (update-in [band :members] conj musician)
+      (update-in [musician :bands] conj band)))
+
+(defn leave-band [state {:keys[musician band]}]
+  (-> state
+      (update-in [band :members] disj musician)
+      (update-in [musician :bands] disj band)))
