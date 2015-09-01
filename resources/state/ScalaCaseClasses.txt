@@ -1,0 +1,13 @@
+import scala.beans._
+
+scala> case class Person(@BeanProperty name : String, @BeanProperty age : Int)
+defined class Person
+
+scala> val p = Person("Bob", 21)
+p: Person = Person(Bob,21)
+
+scala> p.copy(age = 22)
+res2: Person = Person(Bob,22)
+
+scala> p.getName
+res3: String = Bob

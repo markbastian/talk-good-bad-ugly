@@ -7,7 +7,98 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script><!--[if lt IE 9]>
 		<script src="bower_components/html5shiv/dist/html5shiv.js"></script>
-		<![endif]--></head><body><div class="reveal"><!-- Any section element inside of this container is displayed as a slide --><div class="slides"><section><h1>Challenges</h1><h2>Common barriers to functional thinking</h2></section><section><h2>The Barriers</h2><ul><li>Immubility</li><li>Deep Modification</li><li>Cyclical Relationships</li><li>Application State</li></ul></section><section><h2>Immutability</h2><ul><li>If nothing changes, how do you do anything?</li></ul></section><section><h2>Deep Modification</h2><ul><li>How do I modify a deeply nested field?</li></ul></section><section><h2>Deep Modification</h2><ul><li>A weakness of value types without API support</li><li>One solution: Wide and shallow</li><li>Clojure collections make deep modification trivial</li></ul></section><section><h2>Deep Modification Problem</h2><pre><code contenteditable="contenteditable" data-trim="data-trim">(def universe-model
+		<![endif]--></head><body><div class="reveal"><!-- Any section element inside of this container is displayed as a slide --><div class="slides"><section><h1>Challenges</h1><h2>Common barriers to functional thinking</h2></section><section><h2>The Barriers</h2><ul><li>Immubility</li><li>Deep Modification</li><li>Cyclical Relationships</li><li>Application State</li></ul></section><section><h1>Immutability</h1><h2>If nothing changes, how do you do anything?</h2></section><section><h2>Immutability: It's Effective</h2><ul><li>Favor Immubility</li><li>Override Equals</li><li>Override hashcode</li><li>Hashcodes that change with state are very bad</li><li>Philosoraptor?</li></ul></section><section><h2>Canonical Mutable Class</h2><div><div style="float:left;width:50%;"><ul><li>Private fields</li><li>getters/setters</li><li>Override hashcode</li><li>Can I use this in a map?</li><li>Care required when adding fields</li></ul></div><div style="float:right;width:50%;font-size:80%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class MutablePerson {
+    private String name;
+    private int age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}</code></pre></div></div></section><section><h2>Canonical Immutable Class</h2><div><div style="float:left;width:50%;"><ul><li>Just like Effective Java</li><li>How do I change anything</li><li>What about beans/change events?<ul><li>Addressed later</li></ul></li></ul></div><div style="float:right;width:50%;font-size:45%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class ImmutablePerson {
+    private final String name;
+    private final int age;
+
+    public ImmutablePerson(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ImmutablePerson that = (ImmutablePerson) o;
+
+        return age == that.age &amp;&amp; name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + age;
+        return result;
+    }
+}</code></pre></div></div></section><section><h2>Updating Immutable Classes</h2><div><div style="float:left;width:50%;"><ul><li>Destructive updates</li><li>One per updatable field</li></ul></div><div style="float:right;width:50%;font-size:60%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class ImmutablePerson {
+    private final String name;
+    private final int age;
+
+    public ImmutablePerson(String name, int age) {
+
+    ...
+
+    public ImmutablePerson setName(String newName){
+        return new ImmutablePerson(newName, age);
+    }
+
+    public ImmutablePerson setAge(int newAge){
+        return new ImmutablePerson(name, newAge);
+    }
+}</code></pre></div></div></section><section><h2>Challenges Immutable Java Classes</h2><ul><li>Lots of code generation</li><li>Error prone</li></ul></section><section><h2>Value Types: Scala Case Classes</h2><div style="width:100%;font-size:80%"><pre><code contenteditable="contenteditable" data-trim="data-trim">import scala.beans._
+
+scala&gt; case class Person(@BeanProperty name : String, @BeanProperty age : Int)
+defined class Person
+
+scala&gt; val p = Person(&quot;Bob&quot;, 21)
+p: Person = Person(Bob,21)
+
+scala&gt; p.copy(age = 22)
+res2: Person = Person(Bob,22)
+
+scala&gt; p.getName
+res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li><li>@BeanProperty annotation generates getter</li><li>Auto-generation of copy methods</li></ul></section><section><h2>Values Types: Clojure Records</h2><div><div style="float:left;width:50%;"><ul><li>Creates a Java class</li><li>Hashcode/Equals auto-generated</li><li>Same methods for classes as collections<ul><li>assoc</li><li>update</li><li>into</li><li>dissoc</li></ul></li><li>Despite all this coolness, we usually just use maps</li></ul></div><div style="float:right;width:50%;font-size:80%"><pre><code contenteditable="contenteditable" data-trim="data-trim">(defrecord Person [name age])
+(def p (Person. &quot;Bob&quot; 21))
+=&gt; #&apos;user/p
+(assoc p :name &quot;Sam&quot;)
+=&gt; #user.Person{:name &quot;Sam&quot;, :age 21}
+(update p :age inc)
+=&gt; #user.Person{:name &quot;Bob&quot;, :age 22}
+(into p { :weight 200 })
+=&gt; #user.Person{:name &quot;Bob&quot;, :age 21, :weight 200}
+(dissoc p :name)
+=&gt; {:age 21}
+(class (dissoc p :name))
+=&gt; clojure.lang.PersistentArrayMap</code></pre></div></div></section><section><h2>Immutability: Summary</h2><ul><li>Value classes are possible in any language</li><li>The key concept is destructive updates</li><li>Some languages implementations require more care than others</li></ul></section><section><h2>Beyond Value Classes</h2><ul><li>If you believe in immutability it doesn't stop with classes</li><li>You need immutable collections</li><li>No support in Java</li><li>Full support in Scala and Clojure</li></ul></section><section><h1>Modification</h1><h2>Wrangling Deeply Nested Data Structures</h2></section><section><h2>Deep Modification</h2><ul><li>How do I modify a deeply nested field?</li></ul></section><section><h2>Deep Modification</h2><ul><li>A weakness of value types without API support</li><li>One solution: Wide and shallow</li><li>Clojure collections make deep modification trivial</li></ul></section><section><h2>Deep Modification Problem</h2><pre><code contenteditable="contenteditable" data-trim="data-trim">(def universe-model
   { :galaxies
    { :milky-way
      { :systems
@@ -92,7 +183,7 @@
      :venus {:common-name &quot;Venus&quot;},
      :saturn {:common-name &quot;Saturn&quot;}},
     :frak {}}},
-  :andromeda {}}}</code></pre></small></section><section><h2>Immutable Cyclical References</h2><ul><li>How can immutable interdependent relationships be created</li></ul></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:48%;"><ul><li>Parent-Child</li><li>Ownership</li><li>You can't easily update both entities</li><li>In mutable OOP this is a trivial issue</li><li>...but it adds complexity<ul><li>Serialization</li><li>3rd Party Registrar</li></ul></li></ul></div><div style="float:right;width:48%;"><img src="images/bidi-mutable-band.jpg"></div></div></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:43%;"><ul><li>Create an entity map</li><li>Use unique IDs for each entity</li><li>Now updates are decoupled</li></ul></div><div style="float:right;width:55%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def original-van-halen
+  :andromeda {}}}</code></pre></small></section><section><h1>Cycles</h1><h2>Dealing with Recursive Data</h2></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:48%;"><ul><li>Parent-Child</li><li>Ownership</li><li>You can't easily update both entities</li><li>In mutable OOP this is a trivial issue</li><li>...but it adds complexity<ul><li>Serialization</li><li>3rd Party Registrar</li></ul></li></ul></div><div style="float:right;width:48%;"><img src="images/bidi-mutable-band.jpg"></div></div></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:43%;"><ul><li>Create an entity map</li><li>Use unique IDs for each entity</li><li>Now updates are decoupled</li></ul></div><div style="float:right;width:55%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def original-van-halen
   { &quot;Van Halen&quot;
    { :members #{ &quot;Eddie Van Halen&quot;
                 &quot;David Lee Roth&quot;
@@ -134,6 +225,149 @@
  &quot;David Lee Roth&quot; {:bands #{}},
  &quot;Alex Van Halen&quot; {:bands #{&quot;Van Halen&quot;}},
  &quot;Michael Anthony&quot; {:bands #{&quot;Van Halen&quot;}},
- &quot;Sammy Hagar&quot; {:bands (&quot;Van Halen&quot;)}}</code></pre></section><section><h2>Tips With Cyclic References</h2><ul><li>Do you need a cyclical relationship?</li><li>Keys should be invariant over all time<ul><li>Names are horrible keys</li><li>UUIDs make good keys</li></ul></li><li>Don't fear heterogeneous keys</li></ul></section></div></div><script src="bower_components/reveal.js/lib/js/head.min.js" type="text/javascript"></script><script src="bower_components/reveal.js/js/reveal.js" type="text/javascript"></script><script src="bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script><script src="js/reveal-init.js" type="text/javascript"></script><script src="MathJax.Hub.Config({
+ &quot;Sammy Hagar&quot; {:bands (&quot;Van Halen&quot;)}}</code></pre></section><section><h2>Tips With Cyclic References</h2><ul><li>Do you need a cyclical relationship?</li><li>Keys should be invariant over all time<ul><li>Names are horrible keys</li><li>UUIDs make good keys</li></ul></li><li>Don't fear heterogeneous keys</li></ul></section><section><h2>State Management</h2><ul><li>Ultimately, you will likely need persistent references to changing values</li><li>Clojure provides facilities for managing these references</li><li>Reference types<ul><li>Atoms: Uncoordinated, synchronous</li><li>Refs: Coordinated, synchronous</li><li>Agents: Independent, asynchronous</li></ul></li></ul></section><section><h2>Vars</h2><p>Thread-Local Binding</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def ^:dynamic *a* 0)
+(def ^:dynamic *b* 1)
+
+(prn (str &quot;original a, b = &quot; *a* &quot;,&quot; *b*))
+
+(binding [*a* 1 *b* 0]
+  (prn (str &quot;rebound a, b = &quot; *a* &quot;,&quot; *b*))
+  (binding [*a* 11 *b* 45]
+    (prn (str &quot;rebound a, b = &quot; *a* &quot;,&quot; *b*)))
+  (prn (str &quot;popped a, b = &quot; *a* &quot;,&quot; *b*)))
+
+(prn (str &quot;popped a, b = &quot; *a* &quot;,&quot; *b*))</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">&quot;original a, b = 0,1&quot;
+&quot;rebound a, b = 1,0&quot;
+&quot;rebound a, b = 11,45&quot;
+&quot;popped a, b = 1,0&quot;
+&quot;popped a, b = 0,1&quot;</code></pre></section><section><h2>Atoms</h2><p>Uncoordinated, Synchronous</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (atom 0))
+(def b (atom 1))
+
+(defn slow [f] (Thread/sleep 300) f)
+(defn slower [f] (Thread/sleep 400) f)
+
+(future
+  (do
+    (swap! a (comp slow inc))
+    (swap! b (comp slower dec))))
+
+(future
+  (loop [i 10]
+    (when (pos? i)
+      (do
+        (prn (str &quot;a, b = &quot; @a &quot;,&quot; @b))
+        (Thread/sleep 100)
+        (recur (dec i))))))
+
+</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 1,1&quot; ;slow completes
+&quot;a, b = 1,1&quot;
+&quot;a, b = 1,1&quot;
+&quot;a, b = 1,1&quot;
+&quot;a, b = 1,0&quot; ;slower completes
+&quot;a, b = 1,0&quot;
+&quot;a, b = 1,0&quot;</code></pre></section><section><h2>Swap vs. Reset</h2><ul><li>swap! compares and retries - it never loses an operation</li><li>reset! just sets the value of the atom</li></ul><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (atom 0))
+
+(prn (str &quot;original a = &quot; @a))
+
+(dotimes [_ 20]
+ (future (swap! a inc))
+ (future (swap! a dec)))
+
+(prn (str &quot;swap! a = &quot; @a))
+
+(dotimes [_ 20]
+ (future (reset! a (inc @a)))
+ (future (reset! a (dec @a))))
+
+(prn (str &quot;reset! a = &quot; @a))</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">=&gt; #&apos;user/a
+&quot;original a = 0&quot;
+=&gt; nil
+=&gt; nil
+&quot;swap! a = 0&quot;
+=&gt; nil
+=&gt; nil
+&quot;reset! a = 3&quot;
+=&gt; nil</code></pre></section><section><h2>Agents</h2><p>Uncoordinated, Asynchronous</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (agent 0))
+(def b (agent 1))
+
+(defn slow [f] (Thread/sleep 300) f)
+(defn slower [f] (Thread/sleep 400) f)
+
+(future
+  (do
+    (send a (comp slow inc))
+    (send b (comp slower dec))))
+
+(future
+  (loop [i 10]
+    (when (pos? i)
+      (do
+        (prn (str &quot;a, b = &quot; @a &quot;,&quot; @b))
+        (Thread/sleep 100)
+        (recur (dec i))))))</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">&quot;a, b = 0,1&quot; ;Both sends immediately return
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 1,1&quot; ;slow completes
+&quot;a, b = 1,0&quot; ;slower completes
+&quot;a, b = 1,0&quot;
+&quot;a, b = 1,0&quot;
+&quot;a, b = 1,0&quot;
+&quot;a, b = 1,0&quot;
+&quot;a, b = 1,0&quot;</code></pre></section><section><h2>Refs</h2><p>Coordinated, Synchronous</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (ref 0))
+(def b (ref 1))
+
+(defn slow [f] (Thread/sleep 300) f)
+(defn slower [f] (Thread/sleep 400) f)
+
+(future
+  (dosync
+    (alter a (comp slow inc))
+    (alter b (comp slower dec))))
+
+(future
+  (loop [i 10]
+    (when (pos? i)
+      (do
+        (prn (str &quot;a, b = &quot; @a &quot;,&quot; @b))
+        (Thread/sleep 100)
+        (recur (dec i))))))</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot; ;slow completes?
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 1,0&quot; ;both actions complete
+&quot;a, b = 1,0&quot;
+&quot;a, b = 1,0&quot;</code></pre></section><section><h2>Channels</h2><p>Coordinated, Synchronous</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (ref 0))
+(def b (ref 1))
+
+(defn slow [f] (Thread/sleep 300) f)
+(defn slower [f] (Thread/sleep 400) f)
+
+(future
+  (dosync
+    (alter a (comp slow inc))
+    (alter b (comp slower dec))))
+
+(future
+  (loop [i 10]
+    (when (pos? i)
+      (do
+        (prn (str &quot;a, b = &quot; @a &quot;,&quot; @b))
+        (Thread/sleep 100)
+        (recur (dec i))))))</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot; ;slow completes?
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 0,1&quot;
+&quot;a, b = 1,0&quot; ;both actions complete
+&quot;a, b = 1,0&quot;
+&quot;a, b = 1,0&quot;</code></pre></section></div></div><script src="bower_components/reveal.js/lib/js/head.min.js" type="text/javascript"></script><script src="bower_components/reveal.js/js/reveal.js" type="text/javascript"></script><script src="bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script><script src="js/reveal-init.js" type="text/javascript"></script><script src="MathJax.Hub.Config({
         tex2jax: {inlineMath: [[&amp;quot;$&amp;quot;,&amp;quot;$&amp;quot;],[&amp;quot;\(&amp;quot;,&amp;quot;\)&amp;quot;]]}
       });" type="text/x-mathjax-config"></script></body></html>

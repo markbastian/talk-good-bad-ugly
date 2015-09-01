@@ -1,0 +1,13 @@
+(defrecord Person [name age])
+(def p (Person. "Bob" 21))
+=> #'user/p
+(assoc p :name "Sam")
+=> #user.Person{:name "Sam", :age 21}
+(update p :age inc)
+=> #user.Person{:name "Bob", :age 22}
+(into p { :weight 200 })
+=> #user.Person{:name "Bob", :age 21, :weight 200}
+(dissoc p :name)
+=> {:age 21}
+(class (dissoc p :name))
+=> clojure.lang.PersistentArrayMap

@@ -16,14 +16,13 @@
              :dev {:plugins [[lein-cljsbuild "1.0.6"]
                              [org.clojure/clojurescript "1.7.48"]
                              [lein-figwheel "0.3.7"]
-                             ;[lein-scalac "0.1.0"]
-                             ]}
+                             [lein-scalac "0.1.0"]]}
              :cljs {:plugins [[lein-cljsbuild "1.0.6"]
                               [lein-figwheel "0.3.7"]] }}
 
   :source-paths ["src/clj" "src/cljc"]
   :java-source-paths ["src/java"]
-  ;:scala-source-paths ["src/scala"]
+  :scala-source-paths ["src/scala"]
 
   :clj {:builds [{ :source-paths ["src/clj" "src/cljc" "test"] }]}
 
