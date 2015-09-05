@@ -1,11 +1,11 @@
-# Functional Programming: Writing Stateless Code in a Stateful World with Clojure
+# The Good, the Bad and the Ugly: A Polyglot's Perspective on Java, Scala, and Clojure
 
-Slide content to be presented at JavaOne 2015.
+Slide presentation.
 
 ## Usage
 Execute the following commands in a shell:
 
-git clone git@github.com:markbastian/talk-stateless-code.git
+git clone git@github.com:markbastian/talk-good-bad-ugly.git
 
 cd presentation
 
