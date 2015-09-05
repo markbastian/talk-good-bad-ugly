@@ -1,4 +1,4 @@
-(ns state.concurrency
+(ns oldstate.concurrency
   (:require [reveal.clj.core :as reveal]
             [reveal.clj.code-sample :as c]))
 
@@ -15,14 +15,14 @@
       [:li "Refs: Coordinated, synchronous"]
       [:li "Agents: Independent, asynchronous"]]]]])
 
-(def vars
-  [:section
-   [:h2 "Vars"]
-   [:p "Thread-Local Binding"]
-   (c/code-block "resources/state/vars.txt"
-                 {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/vars-out.txt"
-                 {:style  "float:right;width:48%;height:100%;" })])
+;(def vars
+;  [:section
+;   [:h2 "Vars"]
+;   [:p "Thread-Local Binding"]
+;   (c/code-block "resources/state/vars.txt"
+;                 {:style  "float:left;width:48%;height:100%;font-size:40%;" })
+;   (c/code-block "resources/state/vars-out.txt"
+;                 {:style  "float:right;width:48%;height:100%;" })])
 
 (def atoms
   [:section
@@ -62,23 +62,34 @@
    (c/code-block "resources/state/refs-out.txt"
                  {:style  "float:right;width:48%;height:100%;" })])
 
-(def channels
+;(def channels
+;  [:section
+;   [:h2 "Channels"]
+;   [:p "Coordinated, Synchronous"]
+;   (c/code-block "resources/state/refs.txt"
+;                 {:style  "float:left;width:48%;height:100%;font-size:40%;" })
+;   (c/code-block "resources/state/refs-out.txt"
+;                 {:style  "float:right;width:48%;height:100%;" })])
+
+(def conclusion
   [:section
-   [:h2 "Channels"]
-   [:p "Coordinated, Synchronous"]
-   (c/code-block "resources/state/refs.txt"
-                 {:style  "float:left;width:48%;height:100%;font-size:40%;" })
-   (c/code-block "resources/state/refs-out.txt"
-                 {:style  "float:right;width:48%;height:100%;" })])
+   [:h2 "State Management: Summary"]
+   [:ul
+    [:li "Clojure's state management primitives make managing state easy"]
+    [:li "Unlike PCS, concerns are completely separated"]
+    [:li "Implementation specfic methods for updates and changes"]
+    [:li "Common API for access, watch, and validation"]
+    [:li "Easily usable from Java, Scala, or any other JVM languages"]]])
 
 (def slides
   [overview
-   vars
+   ;vars
    atoms
    swap-vs-reset
    agents
    refs
-   channels])
+   ;channels
+   conclusion])
 
 (reveal/write-presentation
   {:out "state.html"

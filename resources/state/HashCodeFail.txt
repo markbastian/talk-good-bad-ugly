@@ -1,0 +1,10 @@
+public static void main(String[] args){
+    Set<MutablePerson> people = new HashSet<>();
+    MutablePerson a = new MutablePerson("Mark", 21);
+    people.add(a);
+    //This prints true
+    System.out.println(people.contains(a));
+    a.setAge(42);
+    //This prints false
+    System.out.println(people.contains(a));
+}

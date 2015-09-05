@@ -1,4 +1,4 @@
-(ns state.management
+(ns oldstate.management
   (:require [reveal.clj.core :as reveal]
             [reveal.clj.code-sample :as c]))
 

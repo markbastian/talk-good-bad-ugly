@@ -1,4 +1,4 @@
-(ns state.threading-state
+(ns oldstate.threading-state
   (:require [reveal.clj.core :as reveal]))
 
 ;;Pattens for handling state

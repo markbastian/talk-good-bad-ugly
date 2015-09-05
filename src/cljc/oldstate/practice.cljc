@@ -1,4 +1,4 @@
-(ns state.practice
+(ns oldstate.practice
   (:require [reveal.clj.core :as reveal]))
 
 ;;Representation

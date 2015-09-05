@@ -1,4 +1,4 @@
-(ns state.transition
+(ns oldstate.transition
   (:require [reveal.clj.core :as reveal]
             [reveal.clj.code-sample :as c]))
 

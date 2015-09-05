@@ -89,3 +89,43 @@
     [:li "How do I do heterogeneous collections?"]
     [:li "How do I modify nested value types (case classes)?"]
     [:li "How do I manage global application state?"]]])
+
+(def canvas
+  [:section
+   [:h2 "Teaser"]
+   [:ul {:style  "float:left;width:50%;" }
+    [:li "Flocking Behaviors"]
+    [:li "Based on Craig Reynold's Flocking Algorithms"]
+    [:li "Stateless*"]
+    [:li "Stick around to see how it's done"]]
+   [:canvas {:id "flocking-canvas" :style  "float:right;width:50%;" }]
+   [:script { :type "text/javascript" :src "js/flocking.js"}]
+   [:script { :type "text/javascript" }
+    "flocking.game_launcher.launch_app(document.getElementById(\"flocking-canvas\"), 400, 400, 20);"]
+   ])
+
+(def predator-prey
+  [:section
+   [:h2 "Stateless Predator Prey"]
+   [:div {:style  "float:left;width:400px;" }
+    [:div
+     [:small [:label { :style "display: inline-block; width: 250px;" } "Initial Prey Population"]]
+     [:input {:id "prey-population-slider" :type "range" :min 0 :max 500 :step 1 }]]
+    [:div
+     [:small [:label { :style "display: inline-block; width: 250px;" } "Initial Predator Population"]]
+     [:input {:id "predator-population-slider" :type "range" :min 0 :max 500 :step 1 }]]
+    [:div
+     [:small [:label { :style "display: inline-block; width: 250px;" } "Reproduction Rate"]]
+     [:input {:id "reproduction-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+    [:div
+     [:small [:label { :style "display: inline-block; width: 250px;" } "Predation Rate"]]
+     [:input {:id "predation-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+    [:div
+     [:small [:label { :style "display: inline-block; width: 250px;" } "Growth Rate"]]
+     [:input {:id "growth-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]
+    [:div
+     [:small [:label { :style "display: inline-block; width: 250px;" } "Death Rate"]]
+     [:input {:id "death-rate-slider" :type "range" :min 0 :max 500 :step 1 }]]]
+   [:canvas {:id "rk-canvas" :width 400 :height 400 :style "border:1px solid #000000;" }]
+   [:script { :type "text/javascript" :src "js/rk.js"}]
+   [:script { :type "text/javascript" } "numerics.canvasui.init(document.getElementById(\"rk-canvas\"));"]])

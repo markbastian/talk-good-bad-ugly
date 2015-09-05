@@ -18,5 +18,5 @@
       :hitchiker-report {:reporter "Unknown", :status "Harmless"}},
      :venus {:common-name "Venus"},
      :saturn {:common-name "Saturn"}},
-    :frak {}}},
+    :proxima-centauri {}}},
   :andromeda {}}}

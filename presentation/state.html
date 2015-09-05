@@ -7,7 +7,7 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script><!--[if lt IE 9]>
 		<script src="bower_components/html5shiv/dist/html5shiv.js"></script>
-		<![endif]--></head><body><div class="reveal"><!-- Any section element inside of this container is displayed as a slide --><div class="slides"><section><h1>Challenges</h1><h2>Common barriers to functional thinking</h2></section><section><h2>The Barriers</h2><ul><li>Immubility</li><li>Deep Modification</li><li>Cyclical Relationships</li><li>Application State</li></ul></section><section><h1>Immutability</h1><h2>If nothing changes, how do you do anything?</h2></section><section><h2>Immutability: It's Effective</h2><ul><li>Favor Immubility</li><li>Override Equals</li><li>Override hashcode</li><li>Hashcodes that change with state are very bad</li><li>Philosoraptor?</li></ul></section><section><h2>Canonical Mutable Class</h2><div><div style="float:left;width:50%;"><ul><li>Private fields</li><li>getters/setters</li><li>Override hashcode</li><li>Can I use this in a map?</li><li>Care required when adding fields</li></ul></div><div style="float:right;width:50%;font-size:80%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class MutablePerson {
+		<![endif]--></head><body><div class="reveal"><!-- Any section element inside of this container is displayed as a slide --><div class="slides"><section><h2>Functional Programming</h2><h4>Writing Stateless Code in a Stateful World with Clojure</h4><p>Mark Bastian</p><small><p><a href="mailto:markbastian@gmail.com?Subject=FP Stateless Talk">markbastian@gmail.com</a></p><p><a href="https://twitter.com/mark_bastian">@mark_bastian</a></p></small><p>10/26/15</p></section><section><h2>Overview</h2><ul><li>Why this talk</li><li>Functional Programming</li><li>Value, State, and Immutability</li><li>Challenges and Solutions</li><li>Conclusions</li></ul></section><section><h2>Why This Talk</h2><ul><li>Many best practices focus on immutability and statelessness</li><li>Modern languages trend towards Functional Programming (e.g. Scala and Clojure)</li><li>This can be a difficult concept to understand</li><li>This talk addresses many of the challenges I faced</li></ul></section><section><h2>Goals</h2><ul><li>Overcome FP hurdles</li><li>Learn language opportunities and limitations</li><li>Become more functional</li><li>Ultimate Goal: Consider Clojure</li></ul></section><section><section><h1>Functional Programming</h1></section><section><h2>Functional Programming</h2><div><div style="float:left;width:50%;"><ul><li>First class functions</li><li>Values</li><li>Referential tranparency</li></ul></div><div style="float:right;width:50%;"><img src="images/191px-Function_machine2.png"></div></div></section><section><h2>Functions</h2><h3>(First class functions)</h3><ul><li>Functions != methods</li><li>Functions are types, just like objects</li><li>They can be passed in to functions (HOF)</li><li>They can be returned from functions (HOF)</li><li>They have mathematical characteristics<ul><li>Composition</li><li>Partial application</li></ul></li></ul></section><section><h2>Values</h2><ul><li>Values are immutable data</li><li>Primitives: numbers, strings, booleans, etc.</li><li>Value classes: Finalized classes with hashcode and equals</li><li>Immutable collections</li><li>State is not a value</li></ul></section><section><h2>Referential Transparency</h2><ul><li>A function that can be replaced by its value is referentially transparent</li><li>The same inputs always map to the same outputs</li><li>In mathematics all functions are referentially transparent</li><li>In programming this is not always the case</li><li>Referential Transparency = No Side Effects</li><li>Convention over enforcement in most languages</li></ul></section></section><section><h2>Comparison of Paradigms</h2><table><thead><tr><th>Aspect</th><th>OOP</th><th>FP</th></tr></thead><tbody><tr><td>State</td><td>Object Fields</td><td>Values/Data</td></tr><tr><td>Transition</td><td>Object Methods</td><td>Functions</td></tr><tr><td>Management</td><td>Object References</td><td>Concurrency Primitives</td></tr><tr><td>I/O</td><td>Object Methods</td><td>Loose Coupling</td></tr><tr><td>Concerns</td><td>Complected</td><td>Separated</td></tr></tbody></table></section><section><section><h1>Challenges</h1><h2>Common barriers to functional thinking</h2></section><section><h2>The Challenges</h2><ul><li>Immubility</li><li>Deep Modification</li><li>Cyclical Relationships</li><li>Application State</li></ul></section><section><h1>Immutability</h1><h2>If nothing changes, how do you do anything?</h2></section><section><h2>Immutability: It's Effective</h2><ul><li>Override equals for logical equality</li><li>Override hashCode when you override equals</li><li>Minimize mutability</li><li>Hashcodes that change with state are very bad</li><li>An example...</li></ul></section><section><h2>Canonical Mutable Class</h2><div><div style="float:left;width:50%;"><ul><li>Private fields</li><li>getters/setters</li><li>No equality semantics</li><li>Beware of mutating hashcodes</li></ul></div><div style="float:right;width:50%;font-size:80%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class MutablePerson {
     private String name;
     private int age;
 
@@ -26,7 +26,31 @@
     public void setAge(int age) {
         this.age = age;
     }
-}</code></pre></div></div></section><section><h2>Canonical Immutable Class</h2><div><div style="float:left;width:50%;"><ul><li>Just like Effective Java</li><li>How do I change anything</li><li>What about beans/change events?<ul><li>Addressed later</li></ul></li></ul></div><div style="float:right;width:50%;font-size:45%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class ImmutablePerson {
+}</code></pre></div></div></section><section><h2>Adding Hashcode and Equals</h2><p>Because people have logical equality</p><div><div style="float:left;width:50%;font-size:60%"><pre><code contenteditable="contenteditable" data-trim="data-trim">@Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    MutablePerson that = (MutablePerson) o;
+
+    return age == that.age &amp;&amp; name.equals(that.name);
+}
+
+@Override
+public int hashCode() {
+    int result = name.hashCode();
+    result = 31 * result + age;
+    return result;
+}</code></pre></div><div style="float:right;width:50%;font-size:65%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public static void main(String[] args){
+    Set&lt;MutablePerson&gt; people = new HashSet&lt;&gt;();
+    MutablePerson a = new MutablePerson(&quot;Mark&quot;, 21);
+    people.add(a);
+    //This prints true
+    System.out.println(people.contains(a));
+    a.setAge(42);
+    //This prints false
+    System.out.println(people.contains(a));
+}</code></pre></div></div></section><section><h2>Canonical Immutable (Value) Class</h2><div><div style="float:left;width:50%;"><ul><li>All fields final</li><li>Single constructor</li><li>Equals and hashCode</li><li>Just like Effective Java</li><li>How do I change anything?</li><li>What about beans/change events?<ul><li>Addressed later</li></ul></li></ul></div><div style="float:right;width:50%;font-size:45%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class ImmutablePerson {
     private final String name;
     private final int age;
 
@@ -59,7 +83,7 @@
         result = 31 * result + age;
         return result;
     }
-}</code></pre></div></div></section><section><h2>Updating Immutable Classes</h2><div><div style="float:left;width:50%;"><ul><li>Destructive updates</li><li>One per updatable field</li></ul></div><div style="float:right;width:50%;font-size:60%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class ImmutablePerson {
+}</code></pre></div></div></section><section><h2>Updating Value Classes</h2><div><div style="float:left;width:50%;"><ul><li>Destructive updates</li><li>One per updatable field</li></ul></div><div style="float:right;width:50%;font-size:60%"><pre><code contenteditable="contenteditable" data-trim="data-trim">public class ImmutablePerson {
     private final String name;
     private final int age;
 
@@ -74,7 +98,7 @@
     public ImmutablePerson setAge(int newAge){
         return new ImmutablePerson(name, newAge);
     }
-}</code></pre></div></div></section><section><h2>Challenges Immutable Java Classes</h2><ul><li>Lots of code generation</li><li>Error prone</li></ul></section><section><h2>Value Types: Scala Case Classes</h2><div style="width:100%;font-size:80%"><pre><code contenteditable="contenteditable" data-trim="data-trim">import scala.beans._
+}</code></pre></div></div></section><section><h2>Challenges of Value Classes in Java</h2><ul><li>Lots of code generation</li><li>Error prone</li></ul></section><section><h2>Value Types: Scala Case Classes</h2><div style="width:100%;font-size:80%"><pre><code contenteditable="contenteditable" data-trim="data-trim">import scala.beans._
 
 scala&gt; case class Person(@BeanProperty name : String, @BeanProperty age : Int)
 defined class Person
@@ -98,7 +122,7 @@ res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li>
 (dissoc p :name)
 =&gt; {:age 21}
 (class (dissoc p :name))
-=&gt; clojure.lang.PersistentArrayMap</code></pre></div></div></section><section><h2>Immutability: Summary</h2><ul><li>Value classes are possible in any language</li><li>The key concept is destructive updates</li><li>Some languages implementations require more care than others</li></ul></section><section><h2>Beyond Value Classes</h2><ul><li>If you believe in immutability it doesn't stop with classes</li><li>You need immutable collections</li><li>No support in Java</li><li>Full support in Scala and Clojure</li></ul></section><section><h1>Modification</h1><h2>Wrangling Deeply Nested Data Structures</h2></section><section><h2>Deep Modification</h2><ul><li>How do I modify a deeply nested field?</li></ul></section><section><h2>Deep Modification</h2><ul><li>A weakness of value types without API support</li><li>One solution: Wide and shallow</li><li>Clojure collections make deep modification trivial</li></ul></section><section><h2>Deep Modification Problem</h2><pre><code contenteditable="contenteditable" data-trim="data-trim">(def universe-model
+=&gt; clojure.lang.PersistentArrayMap</code></pre></div></div></section><section><h2>Immutability: Summary</h2><ul><li>Value classes are possible in any language</li><li>The key concept is destructive updates</li><li>Some languages implementations require more care than others</li></ul></section><section><h2>Beyond Value Classes</h2><ul><li>If you believe in immutability it doesn't stop with classes</li><li>You need immutable collections</li><li>No support in Java</li><li>Full support in Scala and Clojure</li></ul></section><section><h1>Modification</h1><h2>Wrangling Deeply Nested Data Structures</h2></section><section><h2>Deep Modification</h2><ul><li>How do I modify a deeply nested field?</li></ul></section><section><h2>Deep Modification</h2><ul><li>A weakness of value classes without API support</li><li>One solution: Wide and shallow</li><li>Clojure collections make deep modification trivial</li></ul></section><section><h2>Deep Modification Problem</h2><div style="width:100%;font-size:80%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def universe-model
   { :galaxies
    { :milky-way
      { :systems
@@ -114,8 +138,8 @@ res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li>
         :uranus { :common-name &quot;Uranus&quot; }
         :neptune { :common-name &quot;Neptune&quot; }
         :pluto { :common-name &quot;Pluto&quot; } }
-       :frak {}}}
-    :andromeda { }}})</code></pre></section><section><h2>Deep Modification</h2><p>Replacing Earth's Status</p><small style="width:100%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(-&gt; universe-model
+       :proxima-centauri {}}}
+    :andromeda { }}})</code></pre></div></section><section><h2>Deep Modification</h2><p>Replacing Earth's Status</p><small style="width:100%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(-&gt; universe-model
     (assoc-in [:galaxies :milky-way :systems :sol :earth :hitchiker-report :status] &quot;Mostly Harmless&quot;)
     (assoc-in [:galaxies :milky-way :systems :sol :earth :hitchiker-report :reporter] &quot;Ford Prefect&quot;)
     pp/pprint)
@@ -136,7 +160,7 @@ res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li>
       {:reporter &quot;Ford Prefect&quot;, :status &quot;Mostly Harmless&quot;}},
      :venus {:common-name &quot;Venus&quot;},
      :saturn {:common-name &quot;Saturn&quot;}},
-    :frak {}}},
+    :proxima-centauri {}}},
   :andromeda {}}}</code></pre></small></section><section><h2>Deep Modification</h2><p>Updating Earth's Status</p><small style="width:100%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def mostly-harmless-update
     (update-in
       universe-model
@@ -160,7 +184,7 @@ res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li>
       {:reporter &quot;Ford Prefect&quot;, :status &quot;Mostly Harmless&quot;}},
      :venus {:common-name &quot;Venus&quot;},
      :saturn {:common-name &quot;Saturn&quot;}},
-    :frak {}}},
+    :proxima-centauri {}}},
   :andromeda {}}}
 </code></pre></small></section><section><h2>Deep Modification</h2><p>Removing Pluto</p><small style="width:100%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def planetoid-update
   (update-in
@@ -182,8 +206,8 @@ res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li>
       :hitchiker-report {:reporter &quot;Unknown&quot;, :status &quot;Harmless&quot;}},
      :venus {:common-name &quot;Venus&quot;},
      :saturn {:common-name &quot;Saturn&quot;}},
-    :frak {}}},
-  :andromeda {}}}</code></pre></small></section><section><h1>Cycles</h1><h2>Dealing with Recursive Data</h2></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:48%;"><ul><li>Parent-Child</li><li>Ownership</li><li>You can't easily update both entities</li><li>In mutable OOP this is a trivial issue</li><li>...but it adds complexity<ul><li>Serialization</li><li>3rd Party Registrar</li></ul></li></ul></div><div style="float:right;width:48%;"><img src="images/bidi-mutable-band.jpg"></div></div></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:43%;"><ul><li>Create an entity map</li><li>Use unique IDs for each entity</li><li>Now updates are decoupled</li></ul></div><div style="float:right;width:55%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def original-van-halen
+    :proxima-centauri {}}},
+  :andromeda {}}}</code></pre></small></section><section><h2>Deep Modifications: Summary</h2><ul><li>Deeply nested immutable collections can be challenging to update</li><li>Java doesn't have immutable collections</li><li>Scala doesn't have easy deep modification</li><li>Clojure handles deep modification of immutable collections with ease</li></ul></section><section><h1>Cycles</h1><h2>Dealing with Recursive Data</h2></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:48%;"><ul><li>Parent-Child</li><li>Ownership</li><li>You can't easily update both entities</li><li>In mutable OOP this is a trivial issue</li><li>...but it adds complexity<ul><li>Serialization</li><li>3rd Party Registrar</li></ul></li></ul></div><div style="float:right;width:48%;"><img src="images/bidi-mutable-band.jpg"></div></div></section><section><h2>Immutable Cyclical References</h2><div><div style="float:left;width:43%;"><ul><li>Create an entity map</li><li>Use unique IDs for each entity</li><li>Now updates are decoupled</li></ul></div><div style="float:right;width:55%;"><pre><code contenteditable="contenteditable" data-trim="data-trim">(def original-van-halen
   { &quot;Van Halen&quot;
    { :members #{ &quot;Eddie Van Halen&quot;
                 &quot;David Lee Roth&quot;
@@ -225,22 +249,7 @@ res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li>
  &quot;David Lee Roth&quot; {:bands #{}},
  &quot;Alex Van Halen&quot; {:bands #{&quot;Van Halen&quot;}},
  &quot;Michael Anthony&quot; {:bands #{&quot;Van Halen&quot;}},
- &quot;Sammy Hagar&quot; {:bands (&quot;Van Halen&quot;)}}</code></pre></section><section><h2>Tips With Cyclic References</h2><ul><li>Do you need a cyclical relationship?</li><li>Keys should be invariant over all time<ul><li>Names are horrible keys</li><li>UUIDs make good keys</li></ul></li><li>Don't fear heterogeneous keys</li></ul></section><section><h2>State Management</h2><ul><li>Ultimately, you will likely need persistent references to changing values</li><li>Clojure provides facilities for managing these references</li><li>Reference types<ul><li>Atoms: Uncoordinated, synchronous</li><li>Refs: Coordinated, synchronous</li><li>Agents: Independent, asynchronous</li></ul></li></ul></section><section><h2>Vars</h2><p>Thread-Local Binding</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def ^:dynamic *a* 0)
-(def ^:dynamic *b* 1)
-
-(prn (str &quot;original a, b = &quot; *a* &quot;,&quot; *b*))
-
-(binding [*a* 1 *b* 0]
-  (prn (str &quot;rebound a, b = &quot; *a* &quot;,&quot; *b*))
-  (binding [*a* 11 *b* 45]
-    (prn (str &quot;rebound a, b = &quot; *a* &quot;,&quot; *b*)))
-  (prn (str &quot;popped a, b = &quot; *a* &quot;,&quot; *b*)))
-
-(prn (str &quot;popped a, b = &quot; *a* &quot;,&quot; *b*))</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">&quot;original a, b = 0,1&quot;
-&quot;rebound a, b = 1,0&quot;
-&quot;rebound a, b = 11,45&quot;
-&quot;popped a, b = 1,0&quot;
-&quot;popped a, b = 0,1&quot;</code></pre></section><section><h2>Atoms</h2><p>Uncoordinated, Synchronous</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (atom 0))
+ &quot;Sammy Hagar&quot; {:bands (&quot;Van Halen&quot;)}}</code></pre></section><section><h2>Tips With Cyclic References</h2><ul><li>Do you need a cyclical relationship?</li><li>Keys should be invariant over all time<ul><li>Names are horrible keys</li><li>UUIDs make good keys</li></ul></li><li>Don't fear heterogeneous keys</li></ul></section><section><h2>Cycles: Summary</h2><ul><li>Don't just use this pattern with cyclic graphs for value classes</li><li>Loosely coupling objects via IDs is a good solution in many instances</li><li>Java and Scala require homogeneous keys and values</li><li>Clojure's support for heterogeneity makes this pattern simple</li></ul></section><section><h2>State Management</h2><ul><li>Ultimately, you will likely need persistent references to changing values</li><li>Clojure provides facilities for managing these references</li><li>Reference types<ul><li>Atoms: Uncoordinated, synchronous</li><li>Refs: Coordinated, synchronous</li><li>Agents: Independent, asynchronous</li></ul></li></ul></section><section><h2>Atoms</h2><p>Uncoordinated, Synchronous</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (atom 0))
 (def b (atom 1))
 
 (defn slow [f] (Thread/sleep 300) f)
@@ -342,32 +351,6 @@ res3: String = Bob</code></pre></div><ul><li>Hashcode/Equals auto-generated</li>
 &quot;a, b = 0,1&quot;
 &quot;a, b = 1,0&quot; ;both actions complete
 &quot;a, b = 1,0&quot;
-&quot;a, b = 1,0&quot;</code></pre></section><section><h2>Channels</h2><p>Coordinated, Synchronous</p><pre style="float:left;width:48%;height:100%;font-size:40%;"><code contenteditable="contenteditable" data-trim="data-trim">(def a (ref 0))
-(def b (ref 1))
-
-(defn slow [f] (Thread/sleep 300) f)
-(defn slower [f] (Thread/sleep 400) f)
-
-(future
-  (dosync
-    (alter a (comp slow inc))
-    (alter b (comp slower dec))))
-
-(future
-  (loop [i 10]
-    (when (pos? i)
-      (do
-        (prn (str &quot;a, b = &quot; @a &quot;,&quot; @b))
-        (Thread/sleep 100)
-        (recur (dec i))))))</code></pre><pre style="float:right;width:48%;height:100%;"><code contenteditable="contenteditable" data-trim="data-trim">&quot;a, b = 0,1&quot;
-&quot;a, b = 0,1&quot;
-&quot;a, b = 0,1&quot;
-&quot;a, b = 0,1&quot; ;slow completes?
-&quot;a, b = 0,1&quot;
-&quot;a, b = 0,1&quot;
-&quot;a, b = 0,1&quot;
-&quot;a, b = 1,0&quot; ;both actions complete
-&quot;a, b = 1,0&quot;
-&quot;a, b = 1,0&quot;</code></pre></section></div></div><script src="bower_components/reveal.js/lib/js/head.min.js" type="text/javascript"></script><script src="bower_components/reveal.js/js/reveal.js" type="text/javascript"></script><script src="bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script><script src="js/reveal-init.js" type="text/javascript"></script><script src="MathJax.Hub.Config({
+&quot;a, b = 1,0&quot;</code></pre></section><section><h2>State Management: Summary</h2><ul><li>Clojure's state management primitives make managing state easy</li><li>Unlike PCS, concerns are completely separated</li><li>Implementation specfic methods for updates and changes</li><li>Common API for access, watch, and validation</li><li>Easily usable from Java, Scala, or any other JVM languages</li></ul></section></section><section><h2>In Conclusion:</h2><ul><li>You can be functional</li><li>Programming with values is achievable</li><li>Clojure<ul><li>Extremely well designed and thought out</li><li>Try it out</li><li>Also hosted - use it from Java</li></ul></li><li>Come see my other talk</li></ul></section></div></div><script src="bower_components/reveal.js/lib/js/head.min.js" type="text/javascript"></script><script src="bower_components/reveal.js/js/reveal.js" type="text/javascript"></script><script src="bower_components/MathJax/MathJax.js?config=TeX-AMS_HTML-full" type="text/javascript"></script><script src="js/reveal-init.js" type="text/javascript"></script><script src="MathJax.Hub.Config({
         tex2jax: {inlineMath: [[&amp;quot;$&amp;quot;,&amp;quot;$&amp;quot;],[&amp;quot;\(&amp;quot;,&amp;quot;\)&amp;quot;]]}
       });" type="text/x-mathjax-config"></script></body></html>

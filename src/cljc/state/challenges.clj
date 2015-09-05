@@ -7,7 +7,7 @@
 
 (def the-barriers
   [:section
-   [:h2 "The Barriers"]
+   [:h2 "The Challenges"]
    [:ul
     [:li "Immubility"]
     [:li "Deep Modification"]

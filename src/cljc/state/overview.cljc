@@ -32,7 +32,7 @@
 ; -Easy in the small, difficult in the large
 ;
 ; Cycles and references - Use IDs
-; - Amoeba example
+; - MutableAmoeba example
 ; - Demonstrate parent-child
 ;  -return child OR entire state
 ;

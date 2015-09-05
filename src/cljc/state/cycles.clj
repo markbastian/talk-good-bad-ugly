@@ -56,6 +56,15 @@
       [:li "UUIDs make good keys"]]]
     [:li "Don't fear heterogeneous keys"]]])
 
+(def conclusion
+  [:section
+   [:h2 "Cycles: Summary"]
+   [:ul
+    [:li "Don't just use this pattern with cyclic graphs for value classes"]
+    [:li "Loosely coupling objects via IDs is a good solution in many instances"]
+    [:li "Java and Scala require homogeneous keys and values"]
+    [:li "Clojure's support for heterogeneity makes this pattern simple"]]])
+
 (def slides
   [[:section
     [:h1 "Cycles"]
@@ -65,4 +74,5 @@
    cycles-code
    cycles-update
    cycles-in-use
-   cycles-tips])
+   cycles-tips
+   conclusion])

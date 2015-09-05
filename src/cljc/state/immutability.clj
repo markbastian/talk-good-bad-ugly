@@ -6,11 +6,11 @@
   [:section
    [:h2 "Immutability: It's Effective"]
    [:ul
-    [:li "Favor Immubility"]
-    [:li "Override Equals"]
-    [:li "Override hashcode"]
+    [:li "Override equals for logical equality"]
+    [:li "Override hashCode when you override equals"]
+    [:li "Minimize mutability"]
     [:li "Hashcodes that change with state are very bad"]
-    [:li "Philosoraptor?"]]])
+    [:li "An example..."]]])
 
 (def canonical-mutable-java
   [:section
@@ -20,20 +20,32 @@
      [:ul
       [:li "Private fields"]
       [:li "getters/setters"]
-      [:li "Override hashcode"]
-      [:li "Can I use this in a map?"]
-      [:li "Care required when adding fields"]]]
+      [:li "No equality semantics"]
+      [:li "Beware of mutating hashcodes"]]]
     [:div {:style  "float:right;width:50%;font-size:80%" }
      (c/code-block "resources/state/MutablePerson.txt")]]])
 
+(def canonical-mutable-java-hashcode-equals
+  [:section
+   [:h2 "Adding Hashcode and Equals"]
+   [:p "Because people have logical equality"]
+   [:div
+    [:div {:style  "float:left;width:50%;font-size:60%" }
+     (c/code-block "resources/state/MutablePersonHCE.txt")]
+    [:div {:style  "float:right;width:50%;font-size:65%" }
+     (c/code-block "resources/state/HashCodeFail.txt")]]])
+
 (def canonical-immutable-java
   [:section
-   [:h2 "Canonical Immutable Class"]
+   [:h2 "Canonical Immutable (Value) Class"]
    [:div
     [:div {:style "float:left;width:50%;" }
      [:ul
+      [:li "All fields final"]
+      [:li "Single constructor"]
+      [:li "Equals and hashCode"]
       [:li "Just like Effective Java"]
-      [:li "How do I change anything"]
+      [:li "How do I change anything?"]
       [:li "What about beans/change events?"
        [:ul
         [:li "Addressed later"]]]]]
@@ -42,7 +54,7 @@
 
 (def immutable-java-updates
   [:section
-   [:h2 "Updating Immutable Classes"]
+   [:h2 "Updating Value Classes"]
    [:div
     [:div {:style "float:left;width:50%;" }
      [:ul
@@ -53,7 +65,7 @@
 
 (def tedious-immutable-java
   [:section
-   [:h2 "Challenges Immutable Java Classes"]
+   [:h2 "Challenges of Value Classes in Java"]
    [:ul
     [:li "Lots of code generation"]
     [:li "Error prone"]]])
@@ -109,6 +121,7 @@
     [:h2 "If nothing changes, how do you do anything?"]]
    immutability-discussion
    canonical-mutable-java
+   canonical-mutable-java-hashcode-equals
    canonical-immutable-java
    immutable-java-updates
    tedious-immutable-java

@@ -14,5 +14,5 @@
         :uranus { :common-name "Uranus" }
         :neptune { :common-name "Neptune" }
         :pluto { :common-name "Pluto" } }
-       :frak {}}}
+       :proxima-centauri {}}}
     :andromeda { }}})

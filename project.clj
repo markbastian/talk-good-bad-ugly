@@ -1,7 +1,7 @@
 (defproject
-  talk-stateless-code "0.1.0-SNAPSHOT"
-  :description "Functional Programming: Writing Stateless Code in a Stateful World with Clojure"
-  :url "https://github.com/markbastian/awesome-clojure"
+  talk-good-bad-ugly "0.1.0-SNAPSHOT"
+  :description "The Good, The Bad, and The Ugly - A Polyglot's Perspective on Java, Scala, and Clojure"
+  :url "https://github.com/markbastian/talk-good-bad-ugly"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.7.0"]
